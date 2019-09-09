@@ -58,9 +58,16 @@ const FlashTile = () => {
 
   // Comment this out so we can debug Scoring.js tile.firstElementChild.nextElementSibling
   // Remove Tile after one beat of music
-  //   setTimeout(() => {
-  // tile.parentNode.removeChild(tile);
-  //   }, 850); // set to music.bpm
+  if (!Globals.game.game_over && !Globals.game.paused) {
+    setTimeout(() => {
+      tile.parentNode.removeChild(tile);
+    }, 850); // set to music.bpm
+    setTimeout(() => {
+      FlashTile();
+    }, 850);
+  }
+
+  // FlashTile();
 };
 
 export default FlashTile;

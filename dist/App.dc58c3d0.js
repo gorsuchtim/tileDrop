@@ -550,16 +550,19 @@ var removeBlocks = function removeBlocks(howManyBlocksToDrop) {
 };
 
 var DropBlocks = function DropBlocks() {
-  if (_Globals.default.game.allBlocks.length) {
-    setTimeout(function () {
-      removeBlocks(defineTotalBlocksToDrop()); // Uncomment this to continously run drop blocks
-      //  DropBlocks();
-    }, 850); // change to match beat of music.bpm[1]
-  } else {
-    setTimeout(function () {
-      _Globals.default.game.game_over = true;
-      console.log("Game Over, DORK");
-    }, 500);
+  if (!_Globals.default.game.paused) {
+    if (_Globals.default.game.allBlocks.length) {
+      setTimeout(function () {
+        removeBlocks(defineTotalBlocksToDrop()); // Uncomment this to continously run drop blocks
+
+        DropBlocks();
+      }, 850); // change to match beat of music.bpm[1]
+    } else {
+      setTimeout(function () {
+        _Globals.default.game.game_over = true;
+        console.log("Game Over, DORK");
+      }, 500);
+    }
   }
 };
 
@@ -1333,9 +1336,17 @@ var FlashTile = function FlashTile() {
 
   increaseFlashCount(); // Comment this out so we can debug Scoring.js tile.firstElementChild.nextElementSibling
   // Remove Tile after one beat of music
-  //   setTimeout(() => {
-  // tile.parentNode.removeChild(tile);
-  //   }, 850); // set to music.bpm
+
+  if (!_Globals.default.game.game_over && !_Globals.default.game.paused) {
+    setTimeout(function () {
+      tile.parentNode.removeChild(tile);
+    }, 850); // set to music.bpm
+
+    setTimeout(function () {
+      FlashTile();
+    }, 850);
+  } // FlashTile();
+
 };
 
 var _default = FlashTile;
@@ -1754,6 +1765,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _Services.default.init();
 /*
 Bugs:
+BuildGrid not stopping at width and height
 DropBlocks is leaving 1 block when flashing game over
 
 
@@ -1786,7 +1798,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61846" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62118" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
