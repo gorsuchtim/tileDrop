@@ -8,7 +8,7 @@ const moreBlocksNeeded = () =>
   Globals.game.grid_y <= Globals.dom.height ? true : false;
 
 const setGridPos = block => {
-  const blockInfo = block.getBoundingClientRect();
+  var blockInfo = block.getBoundingClientRect();
 
   if (Globals.game.grid_x <= Globals.dom.width) {
     Globals.game.grid_x += blockInfo.width;
@@ -26,17 +26,17 @@ const setBlockPos = block =>
 
 const addToArray = block => Globals.game.allBlocks.push(block);
 
-const BuildGrid = block => {
-  if (moreBlocksNeeded(block)) {
+const BuildGrid = () => {
+  if (moreBlocksNeeded()) {
     setTimeout(() => {
       BuildGrid(addToArray(setBlockPos(setGridPos(CreateBlock()))));
     }, 0);
   } else {
-    const lastBlock = Globals.dom.blocksWrap.lastElementChild;
+    var lastBlock = Globals.dom.blocksWrap.lastElementChild;
     lastBlock.parentNode.removeChild(lastBlock);
     util.elementLib.shuffleArray(Globals.game.allBlocks);
-    //Services.startGame();
-    Services.runGame();
+    Services.startCountdown();
+    //Services.runGame();
   }
 };
 
