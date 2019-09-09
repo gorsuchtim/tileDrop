@@ -5,6 +5,7 @@ import CreateBlock from "../BuildGrid/CreateBlock";
 import BuildGrid from "../BuildGrid/BuildGrid";
 import Countdown from "../Countdown/Countdown";
 import DropBlocks from "../DropBlocks/DropBlocks";
+import FlashTile from "../FlashTile/FlashTile";
 
 const Services = {
   init() {
@@ -19,8 +20,7 @@ const Services = {
   runGame() {
     if (!Globals.game.paused) {
       DropBlocks();
-      // // when game is running regularly as set in BlocksRemaining flashTile fails to clear out the tile that has flashed
-      // flashTile();
+      FlashTile();
       // blocksRemaining();
     }
   }

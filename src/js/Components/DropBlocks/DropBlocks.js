@@ -34,9 +34,9 @@ const removeBlocks = howManyBlocksToDrop => {
 const DropBlocks = () => {
   if (Globals.game.allBlocks.length) {
     setTimeout(() => {
-      console.log(Globals.game.allBlocks.length);
       removeBlocks(defineTotalBlocksToDrop());
-      DropBlocks();
+      // Uncomment this to continously run drop blocks
+      //  DropBlocks();
     }, 850); // change to match beat of music.bpm[1]
   } else {
     setTimeout(() => {

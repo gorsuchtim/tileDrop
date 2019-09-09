@@ -61,6 +61,83 @@ body {
   animation: falling 1s ease-in-out 1;
 }
 
+.tile {
+  z-index: 10;
+}
+
+.lit--white {
+  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px white, 0 0 70px white, 0 0 80px white, 0 0 100px white, 0 0 150px white;
+}
+
+.lit--green {
+  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #5aff18, 0 0 70px #5aff18, 0 0 80px #5aff18, 0 0 100px #5aff18, 0 0 150px #5aff18;
+}
+
+.lit--blue {
+  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff, 0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
+}
+
+@keyframes flashScore {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+.flashScore {
+  -webkit-animation: flashScore 0.75s ease-in-out 1;
+  -moz-animation: flashScore 0.75s ease-in-out 1;
+  animation: flashScore 0.75s ease-in-out 1;
+}
+
+@keyframes changeColor--white {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: white;
+  }
+}
+@keyframes changeColor--blue {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: #228dff;
+  }
+}
+@keyframes changeColor--green {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: #5aff18;
+  }
+}
+.changeColor--white {
+  -webkit-animation: changeColor--white 0.2s ease-in-out 1;
+  -moz-animation: changeColor--white 0.2s ease-in-out 1;
+  animation: changeColor--white 0.2s ease-in-out 1;
+}
+
+.changeColor--blue {
+  -webkit-animation: changeColor--blue 0.2s ease-in-out 1;
+  -moz-animation: changeColor--blue 0.2s ease-in-out 1;
+  animation: changeColor--blue 0.2s ease-in-out 1;
+}
+
+.changeColor--green {
+  -webkit-animation: changeColor--green 0.2s ease-in-out 1;
+  -moz-animation: changeColor--green 0.2s ease-in-out 1;
+  animation: changeColor--green 0.2s ease-in-out 1;
+}
+
 .wrap--timer {
   position: absolute;
   display: flex;
