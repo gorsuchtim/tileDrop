@@ -43,7 +43,7 @@ const DropBlocks = () => {
       setTimeout(() => {
         Globals.game.game_over = true;
         console.log("Game Over, DORK");
-      }, 500);
+      }, 0); // this was 500 - what happens at 0
     }
   }
 };

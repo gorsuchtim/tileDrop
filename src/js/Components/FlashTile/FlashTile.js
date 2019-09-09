@@ -22,11 +22,6 @@ const increaseFlashCount = () => {
     : Globals.game.syncCount++;
 };
 
-const syncRandom = () => {
-  Globals.game.startSync = util.math.createRandomNumber(15, 5); // the sync flashing will start at anywhere between 5 and 15 beat flashes
-  Globals.game.syncLength = util.math.createRandomNumber(12, 3); // the length of the sync flashing will be between 3 and 12 beats
-};
-
 const FlashTile = () => {
   // If sync streak has been hit reset beatCount and syncCount to 0
   if (Globals.game.syncCount == Globals.game.syncLength) {
@@ -36,7 +31,8 @@ const FlashTile = () => {
 
   // Randomly set how many beats pass before sync starts AND randomly set how many beats the sync will last
   if (Globals.game.beatCount == 0) {
-    syncRandom();
+    Globals.game.startSync = util.math.createRandomNumber(15, 5); // the sync flashing will start at anywhere between 5 and 15 beat flashes
+    Globals.game.syncLength = util.math.createRandomNumber(12, 3); // the length of the sync flashing will be between 3 and 12 beats
   }
 
   // Determine if current flash is a beat (white flash) or sync (green flash)

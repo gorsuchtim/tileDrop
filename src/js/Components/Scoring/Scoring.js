@@ -72,7 +72,7 @@ const Scoring = tile => {
 
   //Update DOM score elements with current score
   // score.updateScoreElements();
-
+  console.log(Globals.game.playerScore);
   // Flash the current score beneath the tile in the DOM
   //utilities.classChangeDelay(tile.firstElementChild, 450, "flashScore");
 };

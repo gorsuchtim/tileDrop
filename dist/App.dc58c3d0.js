@@ -561,7 +561,7 @@ var DropBlocks = function DropBlocks() {
       setTimeout(function () {
         _Globals.default.game.game_over = true;
         console.log("Game Over, DORK");
-      }, 500);
+      }, 0); // this was 500 - what happens at 0
     }
   }
 };
@@ -1269,7 +1269,8 @@ var Scoring = function Scoring(tile) {
 
   changeTileBackground(tile); //Update DOM score elements with current score
   // score.updateScoreElements();
-  // Flash the current score beneath the tile in the DOM
+
+  console.log(_Globals.default.game.playerScore); // Flash the current score beneath the tile in the DOM
   //utilities.classChangeDelay(tile.firstElementChild, 450, "flashScore");
 };
 
@@ -1305,12 +1306,6 @@ var increaseFlashCount = function increaseFlashCount() {
   _Globals.default.game.flashColor == "lit--white" ? _Globals.default.game.beatCount++ : _Globals.default.game.syncCount++;
 };
 
-var syncRandom = function syncRandom() {
-  _Globals.default.game.startSync = _Utilities.default.math.createRandomNumber(15, 5); // the sync flashing will start at anywhere between 5 and 15 beat flashes
-
-  _Globals.default.game.syncLength = _Utilities.default.math.createRandomNumber(12, 3); // the length of the sync flashing will be between 3 and 12 beats
-};
-
 var FlashTile = function FlashTile() {
   // If sync streak has been hit reset beatCount and syncCount to 0
   if (_Globals.default.game.syncCount == _Globals.default.game.syncLength) {
@@ -1320,7 +1315,9 @@ var FlashTile = function FlashTile() {
 
 
   if (_Globals.default.game.beatCount == 0) {
-    syncRandom();
+    _Globals.default.game.startSync = _Utilities.default.math.createRandomNumber(15, 5); // the sync flashing will start at anywhere between 5 and 15 beat flashes
+
+    _Globals.default.game.syncLength = _Utilities.default.math.createRandomNumber(12, 3); // the length of the sync flashing will be between 3 and 12 beats
   } // Determine if current flash is a beat (white flash) or sync (green flash)
 
 
@@ -1765,7 +1762,7 @@ _Services.default.init();
 Bugs:
 BuildGrid not stopping at width and height
 DropBlocks is leaving 1 block when flashing game over
-
+When tapping on sync throws error in ReplaceBlocks re classList of undefined
 
 */
 },{"../css/scss/shared.scss":"css/scss/shared.scss","./Components/Utilities/Utilities":"js/Components/Utilities/Utilities.js","./Components/Services/Services":"js/Components/Services/Services.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
