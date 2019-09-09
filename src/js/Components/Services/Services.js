@@ -1,9 +1,10 @@
 "use strict";
 
+import Globals from "../Globals/Globals";
 import CreateBlock from "../BuildGrid/CreateBlock";
 import BuildGrid from "../BuildGrid/BuildGrid";
 import Countdown from "../Countdown/Countdown";
-import Globals from "../Globals/Globals";
+import DropBlocks from "../DropBlocks/DropBlocks";
 
 const Services = {
   init() {
@@ -17,8 +18,7 @@ const Services = {
   },
   runGame() {
     if (!Globals.game.paused) {
-      console.log("game running!");
-      // dropBlocks();
+      DropBlocks();
       // // when game is running regularly as set in BlocksRemaining flashTile fails to clear out the tile that has flashed
       // flashTile();
       // blocksRemaining();
