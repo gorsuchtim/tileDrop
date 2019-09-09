@@ -1384,10 +1384,8 @@ var Services = {
     (0, _Countdown.default)();
   },
   runGame: function runGame() {
-    if (!_Globals.default.game.paused) {
-      (0, _DropBlocks.default)();
-      (0, _FlashTile.default)(); // blocksRemaining();
-    }
+    (0, _DropBlocks.default)();
+    (0, _FlashTile.default)(); // blocksRemaining();
   }
 };
 var _default = Services;

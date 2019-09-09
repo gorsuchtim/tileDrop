@@ -18,11 +18,9 @@ const Services = {
     Countdown();
   },
   runGame() {
-    if (!Globals.game.paused) {
-      DropBlocks();
-      FlashTile();
-      // blocksRemaining();
-    }
+    DropBlocks();
+    FlashTile();
+    // blocksRemaining();
   }
 };
 
