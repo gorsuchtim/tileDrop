@@ -1,0 +1,29 @@
+{
+  "name": "tiledrop",
+  "version": "1.0.0",
+  "description": "Tile drop rhythm game",
+  "main": "index.js",
+  "scripts": {
+    "build": "parcel build src/index.htm",
+    "dev": "parcel src/index.htm",
+    "lint": "eslint \"src/js/**/*.{js,jsx}\""
+  },
+  "author": "Tim Gorsuch",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "parcel-bundler": "^1.12.3",
+    "prettier": "^1.18.2",
+    "sass": "^1.23.0-module.beta.1"
+  },
+  "dependencies": {
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3"
+  }
+}
