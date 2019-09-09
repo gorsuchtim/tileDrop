@@ -452,8 +452,8 @@ var addToArray = function addToArray(block) {
   return _Globals.default.game.allBlocks.push(block);
 };
 
-var BuildGrid = function BuildGrid(block) {
-  if (moreBlocksNeeded(block)) {
+var BuildGrid = function BuildGrid() {
+  if (moreBlocksNeeded()) {
     setTimeout(function () {
       BuildGrid(addToArray(setBlockPos(setGridPos((0, _CreateBlock.default)()))));
     }, 0);
@@ -461,16 +461,52 @@ var BuildGrid = function BuildGrid(block) {
     var lastBlock = _Globals.default.dom.blocksWrap.lastElementChild;
     lastBlock.parentNode.removeChild(lastBlock);
 
-    _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks); //Services.startGame();
+    _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks);
 
-
-    _Services.default.runGame();
+    _Services.default.startCountdown();
   }
 };
 
 var _default = BuildGrid;
 exports.default = _default;
-},{"../Services/Services":"js/Components/Services/Services.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../Globals/Globals":"js/Components/Globals/Globals.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js"}],"js/Components/Services/Services.js":[function(require,module,exports) {
+},{"../Services/Services":"js/Components/Services/Services.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../Globals/Globals":"js/Components/Globals/Globals.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js"}],"js/Components/Countdown/Countdown.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
+
+var _Globals = _interopRequireDefault(require("../Globals/Globals"));
+
+var _Services = _interopRequireDefault(require("../Services/Services"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Countdown = function Countdown() {
+  // Show timer -> count down to 0
+  _Globals.default.dom.timerElement.innerHTML = _Utilities.default.timer.counter;
+
+  _Utilities.default.elementLib.classChange(_Globals.default.dom.timerWrap, "remove", "hidden");
+
+  _Utilities.default.timer.timedCount(_Globals.default.dom.timerElement); // Hide timer
+
+
+  setTimeout(function () {
+    _Globals.default.dom.timerWrap.parentNode.removeChild(_Globals.default.dom.timerWrap);
+  }, 3000); // set timeout equal to countdown: 3000
+  // Start game after countdown - Move this up into the hide timer timeout??
+
+  setTimeout(function () {
+    _Services.default.runGame();
+  }, 3000 + _Globals.default.music.bpm[0]);
+};
+
+var _default = Countdown;
+exports.default = _default;
+},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../Globals/Globals":"js/Components/Globals/Globals.js","../Services/Services":"js/Components/Services/Services.js"}],"js/Components/Services/Services.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -482,30 +518,34 @@ var _CreateBlock = _interopRequireDefault(require("../BuildGrid/CreateBlock"));
 
 var _BuildGrid = _interopRequireDefault(require("../BuildGrid/BuildGrid"));
 
+var _Countdown = _interopRequireDefault(require("../Countdown/Countdown"));
+
+var _Globals = _interopRequireDefault(require("../Globals/Globals"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Services = {
   init: function init() {
-    Services.buildGrid();
+    Services.createGrid();
   },
-  buildGrid: function buildGrid() {
+  createGrid: function createGrid() {
     (0, _BuildGrid.default)((0, _CreateBlock.default)());
-  } // startGame() {
-  //   // countdown();
-  // },
-  // runGame() {
-  //   if (!globals.game.paused) {
-  //     dropBlocks();
-  //     // when game is running regularly as set in BlocksRemaining flashTile fails to clear out the tile that has flashed
-  //     flashTile();
-  //     blocksRemaining();
-  //   }
-  // }
-
+  },
+  startCountdown: function startCountdown() {
+    (0, _Countdown.default)();
+  },
+  runGame: function runGame() {
+    if (!_Globals.default.game.paused) {
+      console.log("game running!"); // dropBlocks();
+      // // when game is running regularly as set in BlocksRemaining flashTile fails to clear out the tile that has flashed
+      // flashTile();
+      // blocksRemaining();
+    }
+  }
 };
 var _default = Services;
 exports.default = _default;
-},{"../BuildGrid/CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
+},{"../BuildGrid/CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../Globals/Globals":"js/Components/Globals/Globals.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -904,7 +944,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51712" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52957" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

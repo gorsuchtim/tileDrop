@@ -1,0 +1,19 @@
+/* Block & Tile Styles */
+.block {
+  position: absolute;
+  width: 3.23em;
+  height: 3em;
+  border: 1px solid white;
+  background-color: rgba(50, 125, 250, 0.25);
+  box-shadow: inset 0 0 30px rgba(50, 125, 250, 0.25);
+  transform: scale(1);
+  transition: opacity 0.5s ease-in-out;
+}
+.tile {
+  position: absolute;
+  width: 4em;
+  height: 4em;
+  border-radius: 25%;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.5);
+}
