@@ -208,6 +208,10 @@ var Globals = {
     blocksWrap_height: document.querySelector(".wrap--blocks").offsetHeight,
     timerWrap: document.querySelector(".wrap--timer"),
     timerElement: document.querySelector(".timer"),
+    startButton: document.querySelector(".start"),
+    pauseButton: document.querySelector(".pause"),
+    score: document.querySelector(".score--title"),
+    streak: document.querySelector(".streak--title"),
     // tile: document.querySelector(".tile"),
     // tile_score: tile.firstElementChild,
     // tile_streak: tile.firstElementChild.nextElementSibling,
@@ -461,10 +465,10 @@ var BuildGrid = function BuildGrid() {
     var lastBlock = _Globals.default.dom.blocksWrap.lastElementChild;
     lastBlock.parentNode.removeChild(lastBlock);
 
-    _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks); // Services.startCountdown();
+    _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks);
 
+    _Services.default.startCountdown(); //Services.runGame();
 
-    _Services.default.runGame();
   }
 };
 
@@ -1211,7 +1215,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var trackSyncStreak = function trackSyncStreak(tile) {
   // Increase syncStreak count with each tap
-  _Globals.default.game.syncStreakCount++; // If the player has continued to stay on the streak during the syncCount, let them know by flashing blue
+  _Globals.default.game.syncStreakCount++; // Update streak in DOM
+
+  _Globals.default.dom.streak.textContent = "Streak: ".concat(_Globals.default.game.syncStreakCount); // If the player has continued to stay on the streak during the syncCount, let them know by flashing blue
 
   if (_Globals.default.game.syncStreakCount == _Globals.default.game.syncCount) {
     utilities.classChangeDelay(tile, 250, "lit--blue"); // If the player has reached the end of the streak then add the synclength value * 10 to their score for bonus
@@ -1267,9 +1273,9 @@ var Scoring = function Scoring(tile) {
 
   checkForStreakBonus(tile); // Change tile background color
 
-  changeTileBackground(tile); //Update DOM score elements with current score
-  // score.updateScoreElements();
+  changeTileBackground(tile); // Update score in DOM
 
+  _Globals.default.dom.score.textContent = "Score: ".concat(_Globals.default.game.playerScore);
   console.log(_Globals.default.game.playerScore); // Flash the current score beneath the tile in the DOM
   //utilities.classChangeDelay(tile.firstElementChild, 450, "flashScore");
 };
@@ -1342,6 +1348,8 @@ var FlashTile = function FlashTile() {
     setTimeout(function () {
       FlashTile();
     }, 850);
+  } else {
+    tile.parentNode.removeChild(tile);
   } // FlashTile();
 
 };
@@ -1753,19 +1761,51 @@ var _Utilities = _interopRequireDefault(require("./Components/Utilities/Utilitie
 
 var _Services = _interopRequireDefault(require("./Components/Services/Services"));
 
+var _Globals = _interopRequireDefault(require("./Components/Globals/Globals"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Import styles
 // Import components
-_Services.default.init();
+// Start Button Behavior
+_Globals.default.dom.startButton.addEventListener("click", function () {
+  _Services.default.init();
+
+  this.classList.add("hidden");
+
+  _Globals.default.dom.pauseButton.classList.remove("hidden");
+}); // Pause Button Behavior
+
+
+_Globals.default.dom.pauseButton.addEventListener("click", function () {
+  _Globals.default.game.paused = !_Globals.default.game.paused;
+
+  if (_Globals.default.game.paused) {
+    this.textContent = "Resume";
+  } else {
+    this.textContent = "Pause";
+
+    _Services.default.runGame();
+  }
+});
 /*
+Need to build:
+Style elements for starting and pausing game, show score, show current streak
+Setup method of resetting streak to 0 when missing a flash
+
+Need to test:
+Test that streak count increases when on a streak
+Test that points add up correctly particularly with re: bonus on streak and synch streak
+
 Bugs:
 BuildGrid not stopping at width and height
 DropBlocks is leaving 1 block when flashing game over
 When tapping on sync throws error in ReplaceBlocks re classList of undefined
+FlashTile continues to run after game over
+Streak title in DOM not emptying to 0 on a missed click
 
 */
-},{"../css/scss/shared.scss":"css/scss/shared.scss","./Components/Utilities/Utilities":"js/Components/Utilities/Utilities.js","./Components/Services/Services":"js/Components/Services/Services.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../css/scss/shared.scss":"css/scss/shared.scss","./Components/Utilities/Utilities":"js/Components/Utilities/Utilities.js","./Components/Services/Services":"js/Components/Services/Services.js","./Components/Globals/Globals":"js/Components/Globals/Globals.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

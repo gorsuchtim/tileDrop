@@ -35,8 +35,8 @@ const BuildGrid = () => {
     var lastBlock = Globals.dom.blocksWrap.lastElementChild;
     lastBlock.parentNode.removeChild(lastBlock);
     util.elementLib.shuffleArray(Globals.game.allBlocks);
-    // Services.startCountdown();
-    Services.runGame();
+    Services.startCountdown();
+    //Services.runGame();
   }
 };
 

@@ -7,6 +7,11 @@ const Globals = {
     blocksWrap_height: document.querySelector(".wrap--blocks").offsetHeight,
     timerWrap: document.querySelector(".wrap--timer"),
     timerElement: document.querySelector(".timer"),
+    startButton: document.querySelector(".start"),
+    pauseButton: document.querySelector(".pause"),
+    score: document.querySelector(".score--title"),
+    streak: document.querySelector(".streak--title"),
+
     // tile: document.querySelector(".tile"),
     // tile_score: tile.firstElementChild,
     // tile_streak: tile.firstElementChild.nextElementSibling,

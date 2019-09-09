@@ -61,6 +61,8 @@ const FlashTile = () => {
     setTimeout(() => {
       FlashTile();
     }, 850);
+  } else {
+    tile.parentNode.removeChild(tile);
   }
 
   // FlashTile();

@@ -8,6 +8,9 @@ const trackSyncStreak = tile => {
   // Increase syncStreak count with each tap
   Globals.game.syncStreakCount++;
 
+  // Update streak in DOM
+  Globals.dom.streak.textContent = `Streak: ${Globals.game.syncStreakCount}`;
+
   // If the player has continued to stay on the streak during the syncCount, let them know by flashing blue
   if (Globals.game.syncStreakCount == Globals.game.syncCount) {
     utilities.classChangeDelay(tile, 250, "lit--blue");
@@ -70,9 +73,10 @@ const Scoring = tile => {
   // Change tile background color
   changeTileBackground(tile);
 
-  //Update DOM score elements with current score
-  // score.updateScoreElements();
+  // Update score in DOM
+  Globals.dom.score.textContent = `Score: ${Globals.game.playerScore}`;
   console.log(Globals.game.playerScore);
+
   // Flash the current score beneath the tile in the DOM
   //utilities.classChangeDelay(tile.firstElementChild, 450, "flashScore");
 };
