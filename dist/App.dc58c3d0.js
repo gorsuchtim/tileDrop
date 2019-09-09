@@ -189,7 +189,52 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Utilities/BuildElement.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Globals/Globals.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _game;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Globals = {
+  dom: {
+    blocksWrap: document.querySelector(".wrap--blocks"),
+    blocksWrap_width: document.querySelector(".wrap--blocks").offsetWidth,
+    blocksWrap_height: document.querySelector(".wrap--blocks").offsetHeight,
+    timerWrap: document.querySelector(".wrap--timer"),
+    timerElement: document.querySelector(".timer"),
+    // tile: document.querySelector(".tile"),
+    // tile_score: tile.firstElementChild,
+    // tile_streak: tile.firstElementChild.nextElementSibling,
+    syncStreakScoreWrap: document.querySelector(".wrap--syncStreakScore"),
+    width: window.innerWidth || document.documentElement.clientWidth,
+    height: window.innerHeight || document.documentElement.clientHeight
+  },
+  game: (_game = {
+    grid_x: 0,
+    grid_y: 0,
+    tile_x: 0,
+    tile_y: 0,
+    syncLength: 0,
+    syncCount: 0,
+    flashColor: "",
+    allBlocks: [],
+    droppedBlocks: [],
+    replacedBlocks: []
+  }, _defineProperty(_game, "droppedBlocks", []), _defineProperty(_game, "replacedBlocks", []), _defineProperty(_game, "game_over", false), _defineProperty(_game, "paused", false), _defineProperty(_game, "playerScore", 0), _defineProperty(_game, "beatCount", 0), _defineProperty(_game, "startSync", 0), _defineProperty(_game, "syncCount", 0), _defineProperty(_game, "powerupCount", 0), _defineProperty(_game, "syncLength", 0), _defineProperty(_game, "syncStreakCount", 0), _defineProperty(_game, "currentStreak", 0), _game),
+  music: {
+    audio: document.querySelector("[audio]"),
+    bpm: [1500, 880]
+  }
+};
+var _default = Globals;
+exports.default = _default;
+},{}],"js/Components/Utilities/BuildElement.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -318,52 +363,7 @@ var elementFactory = {
 };
 var _default = elementFactory;
 exports.default = _default;
-},{"./Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/Globals/Globals.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _game;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var Globals = {
-  dom: {
-    blocksWrap: document.querySelector(".wrap--blocks"),
-    blocksWrap_width: document.querySelector(".wrap--blocks").offsetWidth,
-    blocksWrap_height: document.querySelector(".wrap--blocks").offsetHeight,
-    timerWrap: document.querySelector(".wrap--timer"),
-    timerElement: document.querySelector(".timer"),
-    // tile: document.querySelector(".tile"),
-    // tile_score: tile.firstElementChild,
-    // tile_streak: tile.firstElementChild.nextElementSibling,
-    syncStreakScoreWrap: document.querySelector(".wrap--syncStreakScore"),
-    width: window.innerWidth || document.documentElement.clientWidth,
-    height: window.innerHeight || document.documentElement.clientHeight
-  },
-  game: (_game = {
-    grid_x: 0,
-    grid_y: 0,
-    tile_x: 0,
-    tile_y: 0,
-    syncLength: 0,
-    syncCount: 0,
-    flashColor: "",
-    allBlocks: [],
-    droppedBlocks: [],
-    replacedBlocks: []
-  }, _defineProperty(_game, "droppedBlocks", []), _defineProperty(_game, "replacedBlocks", []), _defineProperty(_game, "game_over", false), _defineProperty(_game, "paused", false), _defineProperty(_game, "playerScore", 0), _defineProperty(_game, "beatCount", 0), _defineProperty(_game, "startSync", 0), _defineProperty(_game, "syncCount", 0), _defineProperty(_game, "powerupCount", 0), _defineProperty(_game, "syncLength", 0), _defineProperty(_game, "syncStreakCount", 0), _defineProperty(_game, "currentStreak", 0), _game),
-  music: {
-    audio: document.querySelector("[audio]"),
-    bpm: [1500, 880]
-  }
-};
-var _default = Globals;
-exports.default = _default;
-},{}],"js/Components/BuildGrid/GenericBlock.js":[function(require,module,exports) {
+},{"./Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/BuildGrid/GenericBlock.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -463,7 +463,9 @@ var BuildGrid = function BuildGrid() {
 
     _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks);
 
-    _Services.default.startCountdown();
+    console.log(_Globals.default.game.allBlocks.length); // Services.startCountdown();
+
+    _Services.default.runGame();
   }
 };
 
@@ -506,7 +508,7 @@ var Countdown = function Countdown() {
 
 var _default = Countdown;
 exports.default = _default;
-},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../Globals/Globals":"js/Components/Globals/Globals.js","../Services/Services":"js/Components/Services/Services.js"}],"js/Components/Services/Services.js":[function(require,module,exports) {
+},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../Globals/Globals":"js/Components/Globals/Globals.js","../Services/Services":"js/Components/Services/Services.js"}],"js/Components/DropBlocks/DropBlocks.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -514,13 +516,74 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _Globals = _interopRequireDefault(require("../Globals/Globals"));
+
+var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+Blocks to drop are in line with players score in increments of 10
+At start of game 1 block drops at a time
+At 20 points, 2 blocks drop -> at 30 points, 3 drop and so on
+When a block drops, remove it from allBlocks and push it to droppedBlocks
+*/
+var defineTotalBlocksToDrop = function defineTotalBlocksToDrop() {
+  var blocksToDrop;
+
+  if (_Globals.default.game.playerScore >= 20) {
+    blocksToDrop = Math.floor(_Globals.default.game.playerScore / 10);
+  } else {
+    blocksToDrop = 1;
+  }
+
+  return blocksToDrop;
+};
+
+var removeBlocks = function removeBlocks(howManyBlocksToDrop) {
+  for (var i = 0; i < howManyBlocksToDrop; i++) {
+    _Globals.default.game.droppedBlocks.push(_Globals.default.game.allBlocks[0]);
+
+    _Utilities.default.elementLib.classChange(_Globals.default.game.allBlocks[0], "add", "falling", "clear");
+
+    _Globals.default.game.allBlocks.shift();
+  }
+};
+
+var DropBlocks = function DropBlocks() {
+  if (_Globals.default.game.allBlocks.length) {
+    setTimeout(function () {
+      console.log(_Globals.default.game.allBlocks.length);
+      removeBlocks(defineTotalBlocksToDrop());
+      DropBlocks();
+    }, 850); // change to match beat of music.bpm[1]
+  } else {
+    setTimeout(function () {
+      _Globals.default.game.game_over = true;
+      console.log("Game Over, DORK");
+    }, 500);
+  }
+};
+
+var _default = DropBlocks;
+exports.default = _default;
+},{"../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/Services/Services.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Globals = _interopRequireDefault(require("../Globals/Globals"));
+
 var _CreateBlock = _interopRequireDefault(require("../BuildGrid/CreateBlock"));
 
 var _BuildGrid = _interopRequireDefault(require("../BuildGrid/BuildGrid"));
 
 var _Countdown = _interopRequireDefault(require("../Countdown/Countdown"));
 
-var _Globals = _interopRequireDefault(require("../Globals/Globals"));
+var _DropBlocks = _interopRequireDefault(require("../DropBlocks/DropBlocks"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -536,8 +599,7 @@ var Services = {
   },
   runGame: function runGame() {
     if (!_Globals.default.game.paused) {
-      console.log("game running!"); // dropBlocks();
-      // // when game is running regularly as set in BlocksRemaining flashTile fails to clear out the tile that has flashed
+      (0, _DropBlocks.default)(); // // when game is running regularly as set in BlocksRemaining flashTile fails to clear out the tile that has flashed
       // flashTile();
       // blocksRemaining();
     }
@@ -545,7 +607,7 @@ var Services = {
 };
 var _default = Services;
 exports.default = _default;
-},{"../BuildGrid/CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../Globals/Globals":"js/Components/Globals/Globals.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
+},{"../Globals/Globals":"js/Components/Globals/Globals.js","../BuildGrid/CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../DropBlocks/DropBlocks":"js/Components/DropBlocks/DropBlocks.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -916,6 +978,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Import styles
 // Import components
 _Services.default.init();
+/*
+Bugs:
+DropBlocks is leaving 1 block when flashing game over
+
+
+*/
 },{"../css/scss/shared.scss":"css/scss/shared.scss","./Components/Utilities/Utilities":"js/Components/Utilities/Utilities.js","./Components/Services/Services":"js/Components/Services/Services.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -944,7 +1012,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52957" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59079" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -47,6 +47,20 @@ body {
   background: rgba(255, 255, 255, 0.5);
 }
 
+/* Animation Styles */
+@-webkit-keyframes falling {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(-1.5);
+  }
+}
+.falling {
+  -webkit-animation: falling 1s ease-in-out 1;
+  animation: falling 1s ease-in-out 1;
+}
+
 .wrap--timer {
   position: absolute;
   display: flex;
@@ -65,6 +79,10 @@ body {
 
 .hidden {
   display: none;
+}
+
+.clear {
+  opacity: 0;
 }
 
 /*# sourceMappingURL=/App.dc58c3d0.css.map */
