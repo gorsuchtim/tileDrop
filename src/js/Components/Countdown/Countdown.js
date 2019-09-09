@@ -2,7 +2,7 @@
 
 import util from "../Utilities/Utilities";
 import Globals from "../Globals/Globals";
-//import Services from "../Services/Services";
+import Services from "../Services/Services";
 
 const Countdown = () => {
   // Show timer -> count down to 0
@@ -15,9 +15,9 @@ const Countdown = () => {
     Globals.dom.timerWrap.parentNode.removeChild(Globals.dom.timerWrap);
   }, 3000); // set timeout equal to countdown: 3000
 
-  // Start game after countdown
+  // Start game after countdown - Move this up into the hide timer timeout??
   setTimeout(() => {
-    // Services.runGame();
+    Services.runGame();
   }, 3000 + Globals.music.bpm[0]);
 };
 
