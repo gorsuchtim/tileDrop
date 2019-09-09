@@ -1,6 +1,6 @@
 "use strict";
-import services from "../services";
-import globals from "./globals";
+import Services from "../Services/Services";
+import Globals from "../Globals/Globals";
 
 const util = {
   math: {
@@ -200,7 +200,7 @@ const util = {
       }
     },
     getIndexByClass(elements, className) {
-      elements.forEach(function (element) {
+      elements.forEach(function(element) {
         if (element.classList.contains(className)) {
           const index = elements.indexOf(element);
         }
@@ -246,27 +246,27 @@ const util = {
     t: "",
     counter: 3, // Set number to count down/up from
     timer_is_on: 0,
-    timedCount: function (timerElement) {
+    timedCount: function(timerElement) {
       timerElement.innerHTML = util.timer.counter;
       util.timer.counter--; // -- to count down, ++ to count up
-      util.timer.t = setTimeout(function () {
+      util.timer.t = setTimeout(function() {
         util.timer.timedCount(timerElement);
-      }, globals.music.bpm[1]); // timer counts down at speed of song's bpm
+      }, Globals.music.bpm[1]); // timer counts down at speed of song's bpm
 
       if (util.timer.counter < 1) {
         // if timer hits 0
-        setTimeout(function () {
+        setTimeout(function() {
           util.timer.stopCount();
         }, 500);
       }
     },
-    startCount: function () {
+    startCount: function() {
       if (!util.timer.timer_is_on) {
         util.timer.timer_is_on = 1;
         util.timer.timedCount(timerElement);
       }
     },
-    stopCount: function () {
+    stopCount: function() {
       clearTimeout(util.timer.t);
       util.timer.counter = 3;
       util.timer.timer_is_on = 0;
@@ -291,7 +291,7 @@ const util = {
         setEvents.elements.bindingElements.forEach(bindingElement => {
           bindingElement.addEventListener(
             bindingElement.getAttribute("eventType"),
-            function () {
+            function() {
               elementLib.bindElements(this);
             }
           );
@@ -302,7 +302,7 @@ const util = {
         setEvents.elements.formatElements.forEach(formatElement => {
           formatElement.addEventListener(
             formatElement.getAttribute("eventType"),
-            function (ev) {
+            function(ev) {
               if (ev.target.value) {
                 ev.target.value = str[formatElement.getAttribute("formatAs")](
                   this.value,
@@ -321,8 +321,8 @@ const util = {
         util.setEvents.elements.dynamicElements.forEach(dynamicElement => {
           dynamicElement.addEventListener(
             dynamicElement.getAttribute("eventType"),
-            function () {
-              services[dynamicElement.getAttribute("functionName")](
+            function() {
+              Services[dynamicElement.getAttribute("functionName")](
                 this,
                 event
               );
