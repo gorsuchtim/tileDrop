@@ -44,7 +44,7 @@ const Globals = {
     currentStreak: 0
   },
   music: {
-    audio: document.querySelector("[audio]"),
+    audio: document.querySelector(".audio__player"),
     bpm: [1500, 880]
   }
 };

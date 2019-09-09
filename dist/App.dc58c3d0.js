@@ -232,7 +232,7 @@ var Globals = {
     replacedBlocks: []
   }, _defineProperty(_game, "droppedBlocks", []), _defineProperty(_game, "replacedBlocks", []), _defineProperty(_game, "game_over", false), _defineProperty(_game, "paused", false), _defineProperty(_game, "playerScore", 0), _defineProperty(_game, "beatCount", 0), _defineProperty(_game, "startSync", 0), _defineProperty(_game, "syncCount", 0), _defineProperty(_game, "powerupCount", 0), _defineProperty(_game, "syncLength", 0), _defineProperty(_game, "syncStreakCount", 0), _defineProperty(_game, "currentStreak", 0), _game),
   music: {
-    audio: document.querySelector("[audio]"),
+    audio: document.querySelector(".audio__player"),
     bpm: [1500, 880]
   }
 };
@@ -1774,6 +1774,8 @@ _Globals.default.dom.startButton.addEventListener("click", function () {
   this.classList.add("hidden");
 
   _Globals.default.dom.pauseButton.classList.remove("hidden");
+
+  _Globals.default.music.audio.play();
 }); // Pause Button Behavior
 
 
@@ -1782,16 +1784,20 @@ _Globals.default.dom.pauseButton.addEventListener("click", function () {
 
   if (_Globals.default.game.paused) {
     this.textContent = "Resume";
+
+    _Globals.default.music.audio.pause();
   } else {
     this.textContent = "Pause";
+
+    _Globals.default.music.audio.play();
 
     _Services.default.runGame();
   }
 });
 /*
 Need to build:
-Style elements for starting and pausing game, show score, show current streak
 Setup method of resetting streak to 0 when missing a flash
+Reset button to show up when game is paused
 
 Need to test:
 Test that streak count increases when on a streak
@@ -1833,7 +1839,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62118" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49923" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

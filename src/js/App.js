@@ -11,6 +11,7 @@ Globals.dom.startButton.addEventListener("click", function() {
   Services.init();
   this.classList.add("hidden");
   Globals.dom.pauseButton.classList.remove("hidden");
+  Globals.music.audio.play();
 });
 
 // Pause Button Behavior
@@ -19,16 +20,18 @@ Globals.dom.pauseButton.addEventListener("click", function() {
 
   if (Globals.game.paused) {
     this.textContent = "Resume";
+    Globals.music.audio.pause();
   } else {
     this.textContent = "Pause";
+    Globals.music.audio.play();
     Services.runGame();
   }
 });
 
 /*
 Need to build:
-Style elements for starting and pausing game, show score, show current streak
 Setup method of resetting streak to 0 when missing a flash
+Reset button to show up when game is paused
 
 Need to test:
 Test that streak count increases when on a streak
