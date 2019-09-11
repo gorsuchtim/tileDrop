@@ -1,4 +1,4 @@
-/* Block & Tile Styles */
+//******* Block Styles
 .block {
   position: absolute;
   width: 3.23em;
@@ -18,7 +18,7 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* Animation Styles */
+//******* Animation Styles
 @-webkit-keyframes falling {
   from {
     transform: scale(1);

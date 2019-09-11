@@ -9,8 +9,9 @@ const moreBlocksNeeded = () =>
 
 const setGridPos = block => {
   var blockInfo = block.getBoundingClientRect();
-
-  if (Globals.game.grid_x <= Globals.dom.width) {
+  console.log(blockInfo);
+  // are we checking the left aligned or right aligned position of the box on width?  because right would tell us better
+  if (Globals.game.grid_x < Globals.dom.width) {
     Globals.game.grid_x += blockInfo.width;
   } else {
     Globals.game.grid_y += blockInfo.height;
@@ -26,7 +27,9 @@ const setBlockPos = block =>
 
 const addToArray = block => Globals.game.allBlocks.push(block);
 
-const BuildGrid = () => {
+const BuildGrid = block => {
+  console.log(block.getBoundingClientRect());
+  /*
   if (moreBlocksNeeded()) {
     setTimeout(() => {
       BuildGrid(addToArray(setBlockPos(setGridPos(CreateBlock()))));
@@ -38,6 +41,7 @@ const BuildGrid = () => {
     Services.startCountdown();
     //Services.runGame();
   }
+  */
 };
 
 export default BuildGrid;

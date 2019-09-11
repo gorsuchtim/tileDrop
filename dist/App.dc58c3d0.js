@@ -435,8 +435,9 @@ var moreBlocksNeeded = function moreBlocksNeeded() {
 
 var setGridPos = function setGridPos(block) {
   var blockInfo = block.getBoundingClientRect();
+  console.log(blockInfo); // are we checking the left aligned or right aligned position of the box on width?  because right would tell us better
 
-  if (_Globals.default.game.grid_x <= _Globals.default.dom.width) {
+  if (_Globals.default.game.grid_x < _Globals.default.dom.width) {
     _Globals.default.game.grid_x += blockInfo.width;
   } else {
     _Globals.default.game.grid_y += blockInfo.height;
@@ -456,20 +457,21 @@ var addToArray = function addToArray(block) {
   return _Globals.default.game.allBlocks.push(block);
 };
 
-var BuildGrid = function BuildGrid() {
+var BuildGrid = function BuildGrid(block) {
+  console.log(block.getBoundingClientRect());
+  /*
   if (moreBlocksNeeded()) {
-    setTimeout(function () {
-      BuildGrid(addToArray(setBlockPos(setGridPos((0, _CreateBlock.default)()))));
+    setTimeout(() => {
+      BuildGrid(addToArray(setBlockPos(setGridPos(CreateBlock()))));
     }, 0);
   } else {
-    var lastBlock = _Globals.default.dom.blocksWrap.lastElementChild;
+    var lastBlock = Globals.dom.blocksWrap.lastElementChild;
     lastBlock.parentNode.removeChild(lastBlock);
-
-    _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks);
-
-    _Services.default.startCountdown(); //Services.runGame();
-
+    util.elementLib.shuffleArray(Globals.game.allBlocks);
+    Services.startCountdown();
+    //Services.runGame();
   }
+  */
 };
 
 var _default = BuildGrid;
@@ -1773,9 +1775,8 @@ _Globals.default.dom.startButton.addEventListener("click", function () {
 
   this.classList.add("hidden");
 
-  _Globals.default.dom.pauseButton.classList.remove("hidden");
+  _Globals.default.dom.pauseButton.classList.remove("hidden"); //  Globals.music.audio.play();
 
-  _Globals.default.music.audio.play();
 }); // Pause Button Behavior
 
 
@@ -1783,13 +1784,9 @@ _Globals.default.dom.pauseButton.addEventListener("click", function () {
   _Globals.default.game.paused = !_Globals.default.game.paused;
 
   if (_Globals.default.game.paused) {
-    this.textContent = "Resume";
-
-    _Globals.default.music.audio.pause();
+    this.textContent = "Resume"; // Globals.music.audio.pause();
   } else {
-    this.textContent = "Pause";
-
-    _Globals.default.music.audio.play();
+    this.textContent = "Pause"; //  Globals.music.audio.play();
 
     _Services.default.runGame();
   }
@@ -1839,7 +1836,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49923" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52287" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -11,7 +11,7 @@ Globals.dom.startButton.addEventListener("click", function() {
   Services.init();
   this.classList.add("hidden");
   Globals.dom.pauseButton.classList.remove("hidden");
-  Globals.music.audio.play();
+  //  Globals.music.audio.play();
 });
 
 // Pause Button Behavior
@@ -20,10 +20,10 @@ Globals.dom.pauseButton.addEventListener("click", function() {
 
   if (Globals.game.paused) {
     this.textContent = "Resume";
-    Globals.music.audio.pause();
+    // Globals.music.audio.pause();
   } else {
     this.textContent = "Pause";
-    Globals.music.audio.play();
+    //  Globals.music.audio.play();
     Services.runGame();
   }
 });
