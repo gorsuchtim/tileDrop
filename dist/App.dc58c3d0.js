@@ -411,7 +411,31 @@ var CreateBlock = function CreateBlock() {
 
 var _default = CreateBlock;
 exports.default = _default;
-},{"../Utilities/BuildElement":"js/Components/Utilities/BuildElement.js","./GenericBlock":"js/Components/BuildGrid/GenericBlock.js"}],"js/Components/BuildGrid/BuildGrid.js":[function(require,module,exports) {
+},{"../Utilities/BuildElement":"js/Components/Utilities/BuildElement.js","./GenericBlock":"js/Components/BuildGrid/GenericBlock.js"}],"js/Components/SetBlockSize/SetBlockSize.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var SetBlockSize = {
+  blockDivision: 10,
+  squareSize: 0,
+  squareSizeString: 0,
+  gameWidth: document.querySelector(".wrap--gameBoard").clientWidth,
+  gameHeight: document.querySelector(".wrap--gameBoard").clientHeight,
+  init: function init() {
+    SetBlockSize.squareSize = SetBlockSize.gameHeight / SetBlockSize.blockDivision;
+    SetBlockSize.squareSizeString = "".concat(SetBlockSize.gameHeight / SetBlockSize.blockDivision, "px");
+    var root = document.documentElement;
+    root.style.setProperty("--block-width", SetBLockSize.squareSizeString);
+    root.style.setProperty("--block-height", SetBlockSize.squareSizeString);
+    return true;
+  }
+};
+var _default = SetBlockSize;
+exports.default = _default;
+},{}],"js/Components/BuildGrid/BuildGrid.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -419,64 +443,59 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Services = _interopRequireDefault(require("../Services/Services"));
-
 var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
-
-var _Globals = _interopRequireDefault(require("../Globals/Globals"));
 
 var _CreateBlock = _interopRequireDefault(require("./CreateBlock"));
 
+var _SetBlockSize = _interopRequireDefault(require("../SetBlockSize/SetBlockSize"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var moreBlocksNeeded = function moreBlocksNeeded() {
-  return _Globals.default.game.grid_y <= _Globals.default.dom.height ? true : false;
+var gameGrid_x = 0;
+var gameGrid_y = 0;
+
+var anymoreBlocksNeeded = function anymoreBlocksNeeded(block) {
+  var rect = block.getBoundingClientRect();
+  return true;
+};
+
+var atBottomYet = function atBottomYet() {
+  if (gameGrid_y >= _SetBlockSize.default.gameHeight - _SetBlockSize.default.squareSize) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 var setGridPos = function setGridPos(block) {
-  var blockInfo = block.getBoundingClientRect();
-  console.log(blockInfo); // are we checking the left aligned or right aligned position of the box on width?  because right would tell us better
+  var rect = block.getBoundingClientRect();
 
-  if (_Globals.default.game.grid_x < _Globals.default.dom.width) {
-    _Globals.default.game.grid_x += blockInfo.width;
+  if (atBottomYet()) {
+    gameGrid_y = 0;
+    gameGrid_x += rect.width;
   } else {
-    _Globals.default.game.grid_y += blockInfo.height;
-    _Globals.default.game.grid_x = 0;
+    gameGrid_y += rect.height;
   }
 
   return block;
 };
 
-var setBlockPos = function setBlockPos(block) {
-  return _Utilities.default.elementLib.setAttributes(block, {
-    style: "top: ".concat(_Globals.default.game.grid_y, "px; left: ").concat(_Globals.default.game.grid_x, "px")
+var setBlockPosition = function setBlockPosition(block) {
+  _Utilities.default.elementLib.setAttributes(block, {
+    style: "top: ".concat(gameGrid_y, "px; left: ").concat(gameGrid_x, "px")
   });
 };
 
-var addToArray = function addToArray(block) {
-  return _Globals.default.game.allBlocks.push(block);
-};
-
 var BuildGrid = function BuildGrid(block) {
-  console.log(block.getBoundingClientRect());
-  /*
-  if (moreBlocksNeeded()) {
-    setTimeout(() => {
-      BuildGrid(addToArray(setBlockPos(setGridPos(CreateBlock()))));
-    }, 0);
-  } else {
-    var lastBlock = Globals.dom.blocksWrap.lastElementChild;
-    lastBlock.parentNode.removeChild(lastBlock);
-    util.elementLib.shuffleArray(Globals.game.allBlocks);
-    Services.startCountdown();
-    //Services.runGame();
-  }
-  */
+  setTimeout(function () {
+    if (anymoreBlocksNeeded(block)) {//BuildGrid(setBlockPosition(setGridPos(CreateBlock())))
+    }
+  }, 500);
 };
 
 var _default = BuildGrid;
 exports.default = _default;
-},{"../Services/Services":"js/Components/Services/Services.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../Globals/Globals":"js/Components/Globals/Globals.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js"}],"js/Components/Countdown/Countdown.js":[function(require,module,exports) {
+},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../SetBlockSize/SetBlockSize":"js/Components/SetBlockSize/SetBlockSize.js"}],"js/Components/Countdown/Countdown.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1378,26 +1397,28 @@ var _DropBlocks = _interopRequireDefault(require("../DropBlocks/DropBlocks"));
 
 var _FlashTile = _interopRequireDefault(require("../FlashTile/FlashTile"));
 
+var _SetBlockSize = _interopRequireDefault(require("../SetBlockSize/SetBlockSize"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Services = {
   init: function init() {
-    Services.createGrid();
+    if (_SetBlockSize.default.init()) {} // BuildGrid(CreateBlock())
+    //Services.createGrid();
+
   },
-  createGrid: function createGrid() {
-    (0, _BuildGrid.default)((0, _CreateBlock.default)());
+  createGrid: function createGrid() {//BuildGrid(CreateBlock());
   },
-  startCountdown: function startCountdown() {
-    (0, _Countdown.default)();
+  startCountdown: function startCountdown() {//Countdown();
   },
-  runGame: function runGame() {
-    (0, _DropBlocks.default)();
-    (0, _FlashTile.default)(); // blocksRemaining();
+  runGame: function runGame() {//DropBlocks();
+    //FlashTile();
+    // blocksRemaining();
   }
 };
 var _default = Services;
 exports.default = _default;
-},{"../Globals/Globals":"js/Components/Globals/Globals.js","../BuildGrid/CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../DropBlocks/DropBlocks":"js/Components/DropBlocks/DropBlocks.js","../FlashTile/FlashTile":"js/Components/FlashTile/FlashTile.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
+},{"../Globals/Globals":"js/Components/Globals/Globals.js","../BuildGrid/CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../DropBlocks/DropBlocks":"js/Components/DropBlocks/DropBlocks.js","../FlashTile/FlashTile":"js/Components/FlashTile/FlashTile.js","../SetBlockSize/SetBlockSize":"js/Components/SetBlockSize/SetBlockSize.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1836,7 +1857,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52287" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56010" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

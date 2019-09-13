@@ -1,8 +1,12 @@
-//******* Block Styles
+:root {
+  --block-width: 0;
+  --block-height: 0;
+}
+
 .block {
   position: absolute;
-  width: 3.23em;
-  height: 3em;
+  width: var(--block-width);
+  height: var(--block-height);
   border: 1px solid white;
   background-color: rgba(50, 125, 250, 0.25);
   box-shadow: inset 0 0 30px rgba(50, 125, 250, 0.25);
