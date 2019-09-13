@@ -1,47 +1,48 @@
-"use strict";
-import Services from "../Services/Services";
 import util from "../Utilities/Utilities";
-import Globals from "../Globals/Globals";
 import CreateBlock from "./CreateBlock";
+import SetBlockSize from "../SetBlockSize/SetBlockSize";
 
-const moreBlocksNeeded = () =>
-  Globals.game.grid_y <= Globals.dom.height ? true : false;
+var gameGrid_x = 0;
+var gameGrid_y = 0;
+
+const anymoreBlocksNeeded = block => {
+  var rect = block.getBoundingClientRect();
+  return true;
+};
+
+const atBottomYet = () => {
+  if (gameGrid_y >= SetBlockSize.gameHeight - SetBlockSize.squareSize) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 const setGridPos = block => {
-  var blockInfo = block.getBoundingClientRect();
-  console.log(blockInfo);
-  // are we checking the left aligned or right aligned position of the box on width?  because right would tell us better
-  if (Globals.game.grid_x < Globals.dom.width) {
-    Globals.game.grid_x += blockInfo.width;
+  var rect = block.getBoundingClientRect();
+
+  if (atBottomYet()) {
+    gameGrid_y = 0;
+    gameGrid_x += rect.width;
   } else {
-    Globals.game.grid_y += blockInfo.height;
-    Globals.game.grid_x = 0;
+    gameGrid_y += rect.height;
   }
+
   return block;
 };
 
-const setBlockPos = block =>
+const setBlockPosition = block => {
   util.elementLib.setAttributes(block, {
-    style: `top: ${Globals.game.grid_y}px; left: ${Globals.game.grid_x}px`
+    style: `top: ${gameGrid_y}px; left: ${gameGrid_x}px`
   });
-
-const addToArray = block => Globals.game.allBlocks.push(block);
+};
 
 const BuildGrid = block => {
-  console.log(block.getBoundingClientRect());
-  /*
-  if (moreBlocksNeeded()) {
-    setTimeout(() => {
-      BuildGrid(addToArray(setBlockPos(setGridPos(CreateBlock()))));
-    }, 0);
-  } else {
-    var lastBlock = Globals.dom.blocksWrap.lastElementChild;
-    lastBlock.parentNode.removeChild(lastBlock);
-    util.elementLib.shuffleArray(Globals.game.allBlocks);
-    Services.startCountdown();
-    //Services.runGame();
-  }
-  */
+  setTimeout(() => {
+    if (anymoreBlocksNeeded(block)) {
+      //BuildGrid(setBlockPosition(setGridPos(CreateBlock())))
+    }
+  }, 500);
 };
 
 export default BuildGrid;

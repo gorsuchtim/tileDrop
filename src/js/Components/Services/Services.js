@@ -6,20 +6,24 @@ import BuildGrid from "../BuildGrid/BuildGrid";
 import Countdown from "../Countdown/Countdown";
 import DropBlocks from "../DropBlocks/DropBlocks";
 import FlashTile from "../FlashTile/FlashTile";
+import SetBlockSize from "../SetBlockSize/SetBlockSize";
 
 const Services = {
   init() {
-    Services.createGrid();
+    if (SetBlockSize.init()) {
+      // BuildGrid(CreateBlock())
+    }
+    //Services.createGrid();
   },
   createGrid() {
-    BuildGrid(CreateBlock());
+    //BuildGrid(CreateBlock());
   },
   startCountdown() {
-    Countdown();
+    //Countdown();
   },
   runGame() {
-    DropBlocks();
-    FlashTile();
+    //DropBlocks();
+    //FlashTile();
     // blocksRemaining();
   }
 };
