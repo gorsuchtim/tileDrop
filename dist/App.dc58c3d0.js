@@ -203,8 +203,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var Globals = {
   dom: {
-    // blocksWrap_width: document.querySelector(".wrap--blocks").offsetWidth,
-    // blocksWrap_height: document.querySelector(".wrap--blocks").offsetHeight,
     //width: window.innerWidth || document.documentElement.clientWidth,
     // height: window.innerHeight || document.documentElement.clientHeight,
     // tile: document.querySelector(".tile"),
@@ -445,6 +443,8 @@ var _CreateBlock = _interopRequireDefault(require("./CreateBlock"));
 
 var _Globals = _interopRequireDefault(require("../Globals/Globals"));
 
+var _Services = _interopRequireDefault(require("../Services/Services"));
+
 var _SetGridSize = _interopRequireDefault(require("../SetGridSize/SetGridSize"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -461,13 +461,17 @@ var BuildGrid = function BuildGrid() {
   setTimeout(function () {
     if (anymoreBlocksNeeded()) {
       BuildGrid(addToArray((0, _CreateBlock.default)()));
+    } else {
+      _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks);
+
+      _Services.default.startCountdown();
     }
   }, 25);
 };
 
 var _default = BuildGrid;
 exports.default = _default;
-},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../Globals/Globals":"js/Components/Globals/Globals.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js"}],"js/Components/Countdown/Countdown.js":[function(require,module,exports) {
+},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../Globals/Globals":"js/Components/Globals/Globals.js","../Services/Services":"js/Components/Services/Services.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js"}],"js/Components/Countdown/Countdown.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -489,7 +493,8 @@ var Countdown = function Countdown() {
 
   _Utilities.default.elementLib.classChange(_Globals.default.dom.timerWrap, "remove", "hidden");
 
-  _Utilities.default.timer.timedCount(_Globals.default.dom.timerElement); // Hide timer
+  _Utilities.default.timer.timedCount(_Globals.default.dom.timerElement); //Globals.music.audio.play();
+  // Hide timer
 
 
   setTimeout(function () {
@@ -499,7 +504,7 @@ var Countdown = function Countdown() {
 
   setTimeout(function () {
     _Services.default.runGame();
-  }, 3000 + _Globals.default.music.bpm[0]);
+  }, 3000 + _Globals.default.music.bpm[1]);
 };
 
 var _default = Countdown;
@@ -550,10 +555,9 @@ var DropBlocks = function DropBlocks() {
   if (!_Globals.default.game.paused) {
     if (_Globals.default.game.allBlocks.length) {
       setTimeout(function () {
-        removeBlocks(defineTotalBlocksToDrop()); // Uncomment this to continously run drop blocks
-
+        removeBlocks(defineTotalBlocksToDrop());
         DropBlocks();
-      }, 850); // change to match beat of music.bpm[1]
+      }, _Globals.default.music.bpm[0]); // change to match beat of music.bpm[1]
     } else {
       setTimeout(function () {
         _Globals.default.game.game_over = true;
@@ -1073,19 +1077,12 @@ var _Globals = _interopRequireDefault(require("../Globals/Globals"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import playerAction from "../PlayerAction/PlayerAction";
 var GenericTile = {
   type: "div",
   content: "",
   appendTo: _Globals.default.dom.blocksWrap,
   attrs: {
     class: "tile"
-    /*
-    dynamic: "",
-    eventType: "click",
-    functionName: playerAction
-    */
-
   },
   setEvent: {},
   addChild: [{
@@ -1346,15 +1343,14 @@ var FlashTile = function FlashTile() {
   if (!_Globals.default.game.game_over && !_Globals.default.game.paused) {
     setTimeout(function () {
       tile.parentNode.removeChild(tile);
-    }, 850); // set to music.bpm
+    }, _Globals.default.music.bpm[1]); // set to music.bpm
 
     setTimeout(function () {
       FlashTile();
-    }, 850);
+    }, _Globals.default.music.bpm[1]);
   } else {
     tile.parentNode.removeChild(tile);
-  } // FlashTile();
-
+  }
 };
 
 var _default = FlashTile;
@@ -1389,11 +1385,12 @@ var Services = {
       (0, _BuildGrid.default)();
     }
   },
-  startCountdown: function startCountdown() {//Countdown();
+  startCountdown: function startCountdown() {
+    (0, _Countdown.default)();
   },
-  runGame: function runGame() {//DropBlocks();
-    //FlashTile();
-    // blocksRemaining();
+  runGame: function runGame() {
+    (0, _DropBlocks.default)();
+    (0, _FlashTile.default)(); // blocksRemaining();
   }
 };
 var _default = Services;
@@ -1774,36 +1771,33 @@ var _Utilities = _interopRequireDefault(require("./Components/Utilities/Utilitie
 
 var _Services = _interopRequireDefault(require("./Components/Services/Services"));
 
+var _Globals = _interopRequireDefault(require("./Components/Globals/Globals"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Import styles
 // Import components
-//import Globals from "./Components/Globals/Globals";
-_Services.default.init();
-/*
 // Start Button Behavior
-Globals.dom.startButton.addEventListener("click", function() {
-  Services.init();
-  this.classList.()add("hidden");
-  Globals.dom.pauseButton.classList.remove("hidden");
-  //  Globals.music.audio.play();
-});
+_Globals.default.dom.startButton.addEventListener("click", function () {
+  _Services.default.init();
 
-// Pause Button Behavior
-Globals.dom.pauseButton.addEventListener("click", function() {
-  Globals.game.paused = !Globals.game.paused;
+  this.classList.add("hidden");
 
-  if (Globals.game.paused) {
-    this.textContent = "Resume";
-    // Globals.music.audio.pause();
+  _Globals.default.dom.pauseButton.classList.remove("hidden");
+}); // Pause Button Behavior
+
+
+_Globals.default.dom.pauseButton.addEventListener("click", function () {
+  _Globals.default.game.paused = !_Globals.default.game.paused;
+
+  if (_Globals.default.game.paused) {
+    this.textContent = "Resume"; // Globals.music.audio.pause();
   } else {
-    this.textContent = "Pause";
-    //  Globals.music.audio.play();
-    Services.runGame();
+    this.textContent = "Pause"; //  Globals.music.audio.play();
+
+    _Services.default.runGame();
   }
 });
-*/
-
 /*
 Need to build:
 Setup method of resetting streak to 0 when missing a flash
@@ -1821,7 +1815,7 @@ FlashTile continues to run after game over
 Streak title in DOM not emptying to 0 on a missed click
 
 */
-},{"../css/scss/shared.scss":"css/scss/shared.scss","./Components/Utilities/Utilities":"js/Components/Utilities/Utilities.js","./Components/Services/Services":"js/Components/Services/Services.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../css/scss/shared.scss":"css/scss/shared.scss","./Components/Utilities/Utilities":"js/Components/Utilities/Utilities.js","./Components/Services/Services":"js/Components/Services/Services.js","./Components/Globals/Globals":"js/Components/Globals/Globals.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1849,7 +1843,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56442" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62832" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

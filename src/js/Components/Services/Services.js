@@ -15,11 +15,11 @@ const Services = {
     }
   },
   startCountdown() {
-    //Countdown();
+    Countdown();
   },
   runGame() {
-    //DropBlocks();
-    //FlashTile();
+    DropBlocks();
+    FlashTile();
     // blocksRemaining();
   }
 };

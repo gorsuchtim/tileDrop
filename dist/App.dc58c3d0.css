@@ -1,3 +1,7 @@
+:root {
+  --grid-size: 0;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,6 +15,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 canvas {
@@ -47,11 +52,24 @@ canvas {
   z-index: 3;
 }
 
+.lit--blue--text {
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff, 0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
+}
+
+.lit--white {
+  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px white, 0 0 70px white, 0 0 80px white, 0 0 100px white, 0 0 150px white;
+}
+
+.lit--green {
+  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #5aff18, 0 0 70px #5aff18, 0 0 80px #5aff18, 0 0 100px #5aff18, 0 0 150px #5aff18;
+}
+
 :root {
   --grid-size: 0;
 }
 
 .wrap--blocks {
+  position: relative;
   width: 90%;
   height: 90%;
   display: grid;
@@ -84,22 +102,10 @@ canvas {
   position: absolute;
   width: 4em;
   height: 4em;
-  border-radius: 25%;
+  border-radius: 10px;
   cursor: pointer;
   background: rgba(255, 255, 255, 0.5);
   z-index: 3;
-}
-
-.lit--white {
-  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px white, 0 0 70px white, 0 0 80px white, 0 0 100px white, 0 0 150px white;
-}
-
-.lit--green {
-  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #5aff18, 0 0 70px #5aff18, 0 0 80px #5aff18, 0 0 100px #5aff18, 0 0 150px #5aff18;
-}
-
-.lit--blue {
-  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff, 0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
 }
 
 @keyframes flashScore {
@@ -196,9 +202,6 @@ canvas {
   font-size: 3em;
   color: white;
   z-index: 5;
-}
-
-.lit--blue-timer {
   text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff, 0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
 }
 

@@ -1,6 +1,7 @@
 import util from "../Utilities/Utilities";
 import CreateBlock from "./CreateBlock";
 import Globals from "../Globals/Globals";
+import Services from "../Services/Services";
 import SetGridSize from "../SetGridSize/SetGridSize";
 
 const anymoreBlocksNeeded = () =>
@@ -15,6 +16,9 @@ const BuildGrid = () => {
   setTimeout(() => {
     if (anymoreBlocksNeeded()) {
       BuildGrid(addToArray(CreateBlock()));
+    } else {
+      util.elementLib.shuffleArray(Globals.game.allBlocks);
+      Services.startCountdown();
     }
   }, 25);
 };

@@ -1,3 +1,5 @@
+@import "_variables.scss";
+
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +12,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 canvas {
@@ -44,4 +47,14 @@ canvas {
   justify-content: space-around;
   align-items: center;
   z-index: 3;
+}
+
+.lit--blue--text {
+  text-shadow: $lit--blue;
+}
+.lit--white {
+  box-shadow: $lit--white;
+}
+.lit--green {
+  box-shadow: $lit--green;
 }

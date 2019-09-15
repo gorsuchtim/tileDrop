@@ -2,8 +2,6 @@
 
 const Globals = {
   dom: {
-    // blocksWrap_width: document.querySelector(".wrap--blocks").offsetWidth,
-    // blocksWrap_height: document.querySelector(".wrap--blocks").offsetHeight,
     //width: window.innerWidth || document.documentElement.clientWidth,
     // height: window.innerHeight || document.documentElement.clientHeight,
     // tile: document.querySelector(".tile"),

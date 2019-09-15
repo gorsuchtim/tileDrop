@@ -36,9 +36,8 @@ const DropBlocks = () => {
     if (Globals.game.allBlocks.length) {
       setTimeout(() => {
         removeBlocks(defineTotalBlocksToDrop());
-        // Uncomment this to continously run drop blocks
         DropBlocks();
-      }, 850); // change to match beat of music.bpm[1]
+      }, Globals.music.bpm[0]); // change to match beat of music.bpm[1]
     } else {
       setTimeout(() => {
         Globals.game.game_over = true;

@@ -8,9 +8,5 @@
   font-size: 3em;
   color: white;
   z-index: 5;
-}
-
-.lit--blue-timer {
-  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff,
-    0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
+  text-shadow: $lit--blue;
 }
