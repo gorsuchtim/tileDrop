@@ -2,26 +2,27 @@
 
 const Globals = {
   dom: {
+    // blocksWrap_width: document.querySelector(".wrap--blocks").offsetWidth,
+    // blocksWrap_height: document.querySelector(".wrap--blocks").offsetHeight,
+    //width: window.innerWidth || document.documentElement.clientWidth,
+    // height: window.innerHeight || document.documentElement.clientHeight,
+    // tile: document.querySelector(".tile"),
+    // tile_score: tile.firstElementChild,
+    // tile_streak: tile.firstElementChild.nextElementSibling,
     blocksWrap: document.querySelector(".wrap--blocks"),
-    blocksWrap_width: document.querySelector(".wrap--blocks").offsetWidth,
-    blocksWrap_height: document.querySelector(".wrap--blocks").offsetHeight,
+    gameWidth: document.querySelector(".wrap--gameBoard").clientWidth,
+    gameHeight: document.querySelector(".wrap--gameBoard").clientHeight,
     timerWrap: document.querySelector(".wrap--timer"),
     timerElement: document.querySelector(".timer"),
     startButton: document.querySelector(".start"),
     pauseButton: document.querySelector(".pause"),
     score: document.querySelector(".score--title"),
     streak: document.querySelector(".streak--title"),
-
-    // tile: document.querySelector(".tile"),
-    // tile_score: tile.firstElementChild,
-    // tile_streak: tile.firstElementChild.nextElementSibling,
-    syncStreakScoreWrap: document.querySelector(".wrap--syncStreakScore"),
-    width: window.innerWidth || document.documentElement.clientWidth,
-    height: window.innerHeight || document.documentElement.clientHeight
+    syncStreakScoreWrap: document.querySelector(".wrap--syncStreakScore")
   },
   game: {
-    grid_x: 0,
-    grid_y: 0,
+    // grid_x: 0,
+    // grid_y: 0,
     tile_x: 0,
     tile_y: 0,
     syncLength: 0,

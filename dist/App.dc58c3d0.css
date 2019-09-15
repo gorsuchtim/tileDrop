@@ -10,6 +10,7 @@ body {
   height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 canvas {
@@ -17,41 +18,28 @@ canvas {
   z-index: 1;
 }
 
-.wrap {
+.wrap--gameBoard {
+  position: relative;
   width: 100%;
   height: 100%;
   z-index: 2;
 }
 
-.wrap--gameBoard {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
 :root {
   --block-width: 0;
   --block-height: 0;
+  --border-width: 1px;
 }
 
 .block {
   position: absolute;
   width: var(--block-width);
   height: var(--block-height);
-  border: 1px solid white;
+  border: var(--border-width) solid white;
   background-color: rgba(50, 125, 250, 0.25);
   box-shadow: inset 0 0 30px rgba(50, 125, 250, 0.25);
   transform: scale(1);
   transition: opacity 0.5s ease-in-out;
-}
-
-.tile {
-  position: absolute;
-  width: 4em;
-  height: 4em;
-  border-radius: 25%;
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.5);
 }
 
 @-webkit-keyframes falling {
@@ -68,7 +56,13 @@ canvas {
 }
 
 .tile {
-  z-index: 10;
+  position: absolute;
+  width: 4em;
+  height: 4em;
+  border-radius: 25%;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 3;
 }
 
 .lit--white {

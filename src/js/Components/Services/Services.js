@@ -11,12 +11,9 @@ import SetBlockSize from "../SetBlockSize/SetBlockSize";
 const Services = {
   init() {
     if (SetBlockSize.init()) {
-      // BuildGrid(CreateBlock())
+      // BuildGrid(CreateBlock());
+      BuildGrid();
     }
-    //Services.createGrid();
-  },
-  createGrid() {
-    //BuildGrid(CreateBlock());
   },
   startCountdown() {
     //Countdown();
