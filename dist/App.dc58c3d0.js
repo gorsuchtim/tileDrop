@@ -189,56 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Globals/Globals.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _game;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var Globals = {
-  dom: {
-    //width: window.innerWidth || document.documentElement.clientWidth,
-    // height: window.innerHeight || document.documentElement.clientHeight,
-    // tile: document.querySelector(".tile"),
-    // tile_score: tile.firstElementChild,
-    // tile_streak: tile.firstElementChild.nextElementSibling,
-    blocksWrap: document.querySelector(".wrap--blocks"),
-    gameWidth: document.querySelector(".wrap--gameBoard").clientWidth,
-    gameHeight: document.querySelector(".wrap--gameBoard").clientHeight,
-    timerWrap: document.querySelector(".wrap--timer"),
-    timerElement: document.querySelector(".timer"),
-    startButton: document.querySelector(".start"),
-    pauseButton: document.querySelector(".pause"),
-    score: document.querySelector(".score--title"),
-    streak: document.querySelector(".streak--title"),
-    syncStreakScoreWrap: document.querySelector(".wrap--syncStreakScore")
-  },
-  game: (_game = {
-    // grid_x: 0,
-    // grid_y: 0,
-    tile_x: 0,
-    tile_y: 0,
-    syncLength: 0,
-    syncCount: 0,
-    flashColor: "",
-    allBlocks: [],
-    droppedBlocks: [],
-    replacedBlocks: []
-  }, _defineProperty(_game, "droppedBlocks", []), _defineProperty(_game, "replacedBlocks", []), _defineProperty(_game, "game_over", false), _defineProperty(_game, "paused", false), _defineProperty(_game, "playerScore", 0), _defineProperty(_game, "beatCount", 0), _defineProperty(_game, "startSync", 0), _defineProperty(_game, "syncCount", 0), _defineProperty(_game, "powerupCount", 0), _defineProperty(_game, "syncLength", 0), _defineProperty(_game, "syncStreakCount", 0), _defineProperty(_game, "currentStreak", 0), _game),
-  music: {
-    audio: document.querySelector(".audio__player"),
-    bpm: [1500, 880]
-  }
-};
-var _default = Globals;
-exports.default = _default;
-},{}],"js/Components/Utilities/BuildElement.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/Components/Utilities/BuildElement.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -367,7 +318,56 @@ var elementFactory = {
 };
 var _default = elementFactory;
 exports.default = _default;
-},{"./Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/BuildGrid/GenericBlock.js":[function(require,module,exports) {
+},{"./Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/Globals/Globals.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _game;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Globals = {
+  dom: {
+    //width: window.innerWidth || document.documentElement.clientWidth,
+    // height: window.innerHeight || document.documentElement.clientHeight,
+    // tile: document.querySelector(".tile"),
+    // tile_score: tile.firstElementChild,
+    // tile_streak: tile.firstElementChild.nextElementSibling,
+    blocksWrap: document.querySelector(".wrap--blocks"),
+    gameWidth: document.querySelector(".wrap--gameBoard").clientWidth,
+    gameHeight: document.querySelector(".wrap--gameBoard").clientHeight,
+    timerWrap: document.querySelector(".wrap--timer"),
+    timerElement: document.querySelector(".timer"),
+    startButton: document.querySelector(".start"),
+    pauseButton: document.querySelector(".pause"),
+    score: document.querySelector(".score--title"),
+    streak: document.querySelector(".streak--title"),
+    syncStreakScoreWrap: document.querySelector(".wrap--syncStreakScore")
+  },
+  game: (_game = {
+    // grid_x: 0,
+    // grid_y: 0,
+    tile_x: 0,
+    tile_y: 0,
+    syncLength: 0,
+    syncCount: 0,
+    flashColor: "",
+    allBlocks: [],
+    droppedBlocks: [],
+    replacedBlocks: []
+  }, _defineProperty(_game, "droppedBlocks", []), _defineProperty(_game, "replacedBlocks", []), _defineProperty(_game, "game_over", false), _defineProperty(_game, "paused", false), _defineProperty(_game, "playerScore", 0), _defineProperty(_game, "beatCount", 0), _defineProperty(_game, "startSync", 0), _defineProperty(_game, "syncCount", 0), _defineProperty(_game, "powerupCount", 0), _defineProperty(_game, "syncLength", 0), _defineProperty(_game, "syncStreakCount", 0), _defineProperty(_game, "currentStreak", 0), _game),
+  music: {
+    audio: document.querySelector(".audio__player"),
+    bpm: [1500, 880]
+  }
+};
+var _default = Globals;
+exports.default = _default;
+},{}],"js/Components/BuildGrid/GenericBlock.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -462,9 +462,10 @@ var BuildGrid = function BuildGrid() {
     if (anymoreBlocksNeeded()) {
       BuildGrid(addToArray((0, _CreateBlock.default)()));
     } else {
-      _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks);
+      _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks); // Services.startCountdown();
 
-      _Services.default.startCountdown();
+
+      _Services.default.runGame();
     }
   }, 25);
 };
@@ -1127,7 +1128,25 @@ var CreateTile = function CreateTile() {
 
 var _default = CreateTile;
 exports.default = _default;
-},{"../utilities/BuildElement":"js/Components/utilities/BuildElement.js","./GenericTile":"js/Components/SetTile/GenericTile.js"}],"js/Components/SetTile/SetTile.js":[function(require,module,exports) {
+},{"../utilities/BuildElement":"js/Components/utilities/BuildElement.js","./GenericTile":"js/Components/SetTile/GenericTile.js"}],"js/Components/SetTileSize/SetTileSize.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var SetTileSize = {
+  tileSize: 64,
+  init: function init() {
+    var root = document.documentElement;
+    root.style.setProperty("--tile-size", SetTileSize.tileSize + "px");
+    root.style.setProperty("--tile-size", SetTileSize.tileSize + "px");
+    return true;
+  }
+};
+var _default = SetTileSize;
+exports.default = _default;
+},{}],"js/Components/SetTile/SetTile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1141,11 +1160,15 @@ var _CreateTile = _interopRequireDefault(require("./CreateTile"));
 
 var _Globals = _interopRequireDefault(require("../Globals/Globals"));
 
+var _SetTileSize = _interopRequireDefault(require("../SetTileSize/SetTileSize"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var blocksRect = _Globals.default.dom.blocksWrap.getBoundingClientRect();
+
 var setCoordinates = function setCoordinates(tile) {
-  _Globals.default.game.tile_x = _Utilities.default.math.createRandomNumber(_Globals.default.dom.width, 0, _Globals.default.game.tile_x);
-  _Globals.default.game.tile_y = _Utilities.default.math.createRandomNumber(_Globals.default.dom.height, 0, _Globals.default.game.tile_y);
+  _Globals.default.game.tile_x = _Utilities.default.math.createRandomNumber(blocksRect.right - _SetTileSize.default.tileSize, blocksRect.left - _SetTileSize.default.tileSize, _Globals.default.game.tile_x);
+  _Globals.default.game.tile_y = _Utilities.default.math.createRandomNumber(blocksRect.bottom - _SetTileSize.default.tileSize, blocksRect.top - _SetTileSize.default.tileSize, _Globals.default.game.tile_y);
   return tile;
 };
 
@@ -1163,7 +1186,7 @@ var SetTile = function SetTile() {
 
 var _default = SetTile;
 exports.default = _default;
-},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateTile":"js/Components/SetTile/CreateTile.js","../Globals/Globals":"js/Components/Globals/Globals.js"}],"js/Components/ReplaceBlocks/ReplaceBlocks.js":[function(require,module,exports) {
+},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateTile":"js/Components/SetTile/CreateTile.js","../Globals/Globals":"js/Components/Globals/Globals.js","../SetTileSize/SetTileSize":"js/Components/SetTileSize/SetTileSize.js"}],"js/Components/ReplaceBlocks/ReplaceBlocks.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1363,10 +1386,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Globals = _interopRequireDefault(require("../Globals/Globals"));
-
-var _CreateBlock = _interopRequireDefault(require("../BuildGrid/CreateBlock"));
-
 var _BuildGrid = _interopRequireDefault(require("../BuildGrid/BuildGrid"));
 
 var _Countdown = _interopRequireDefault(require("../Countdown/Countdown"));
@@ -1377,25 +1396,29 @@ var _FlashTile = _interopRequireDefault(require("../FlashTile/FlashTile"));
 
 var _SetGridSize = _interopRequireDefault(require("../SetGridSize/SetGridSize"));
 
+var _SetTileSize = _interopRequireDefault(require("../SetTileSize/SetTileSize"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Services = {
   init: function init() {
     if (_SetGridSize.default.init()) {
-      (0, _BuildGrid.default)();
+      if (_SetTileSize.default.init()) {
+        (0, _BuildGrid.default)();
+      }
     }
   },
   startCountdown: function startCountdown() {
     (0, _Countdown.default)();
   },
   runGame: function runGame() {
-    (0, _DropBlocks.default)();
+    // DropBlocks();
     (0, _FlashTile.default)(); // blocksRemaining();
   }
 };
 var _default = Services;
 exports.default = _default;
-},{"../Globals/Globals":"js/Components/Globals/Globals.js","../BuildGrid/CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../DropBlocks/DropBlocks":"js/Components/DropBlocks/DropBlocks.js","../FlashTile/FlashTile":"js/Components/FlashTile/FlashTile.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
+},{"../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../DropBlocks/DropBlocks":"js/Components/DropBlocks/DropBlocks.js","../FlashTile/FlashTile":"js/Components/FlashTile/FlashTile.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js","../SetTileSize/SetTileSize":"js/Components/SetTileSize/SetTileSize.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1843,7 +1866,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62832" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49351" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -18,7 +18,8 @@ const BuildGrid = () => {
       BuildGrid(addToArray(CreateBlock()));
     } else {
       util.elementLib.shuffleArray(Globals.game.allBlocks);
-      Services.startCountdown();
+      // Services.startCountdown();
+      Services.runGame();
     }
   }, 25);
 };
