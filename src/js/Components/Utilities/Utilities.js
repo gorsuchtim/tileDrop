@@ -174,8 +174,16 @@ const util = {
         }, speed);
       }
     },
-    convertToArray(values) {
-      return [].slice.call(values);
+    toArray(values) {
+      if (Array.from) {
+        return Array.from(values);
+      } else {
+        var newArray = [];
+        for (var i = 0; i < values.length; i++) {
+          newArray.push(values[i]);
+        }
+        return newArray;
+      }
     },
     filter_attrs(element, ...toMatch) {
       let attrs = util
