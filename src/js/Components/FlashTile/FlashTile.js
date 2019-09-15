@@ -57,15 +57,13 @@ const FlashTile = () => {
   if (!Globals.game.game_over && !Globals.game.paused) {
     setTimeout(() => {
       tile.parentNode.removeChild(tile);
-    }, 850); // set to music.bpm
+    }, Globals.music.bpm[1]); // set to music.bpm
     setTimeout(() => {
       FlashTile();
-    }, 850);
+    }, Globals.music.bpm[1]);
   } else {
     tile.parentNode.removeChild(tile);
   }
-
-  // FlashTile();
 };
 
 export default FlashTile;

@@ -1,7 +1,6 @@
 "use strict";
 
 import Globals from "../Globals/Globals";
-//import playerAction from "../PlayerAction/PlayerAction";
 
 const GenericTile = {
   type: "div",
@@ -9,11 +8,6 @@ const GenericTile = {
   appendTo: Globals.dom.blocksWrap,
   attrs: {
     class: "tile"
-    /*
-    dynamic: "",
-    eventType: "click",
-    functionName: playerAction
-    */
   },
   setEvent: {},
   addChild: [

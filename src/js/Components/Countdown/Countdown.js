@@ -9,6 +9,7 @@ const Countdown = () => {
   Globals.dom.timerElement.innerHTML = util.timer.counter;
   util.elementLib.classChange(Globals.dom.timerWrap, "remove", "hidden");
   util.timer.timedCount(Globals.dom.timerElement);
+  //Globals.music.audio.play();
 
   // Hide timer
   setTimeout(() => {
@@ -18,7 +19,7 @@ const Countdown = () => {
   // Start game after countdown - Move this up into the hide timer timeout??
   setTimeout(() => {
     Services.runGame();
-  }, 3000 + Globals.music.bpm[0]);
+  }, 3000 + Globals.music.bpm[1]);
 };
 
 export default Countdown;

@@ -2,24 +2,10 @@
   position: absolute;
   width: 4em;
   height: 4em;
-  border-radius: 25%;
+  border-radius: 10px;
   cursor: pointer;
   background: rgba(255, 255, 255, 0.5);
   z-index: 3;
-}
-
-.lit--white {
-  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px white,
-    0 0 70px white, 0 0 80px white, 0 0 100px white, 0 0 150px white;
-}
-.lit--green {
-  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #5aff18,
-    0 0 70px #5aff18, 0 0 80px #5aff18, 0 0 100px #5aff18, 0 0 150px #5aff18;
-}
-
-.lit--blue {
-  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff,
-    0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
 }
 
 @keyframes flashScore {

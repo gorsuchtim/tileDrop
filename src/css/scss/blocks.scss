@@ -1,6 +1,7 @@
 @import "_variables.scss";
 
 .wrap--blocks {
+  position: relative;
   width: 90%;
   height: 90%;
   display: grid;

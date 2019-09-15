@@ -3,3 +3,12 @@
 }
 
 $block-blue: rgba(50, 125, 250, 0.25);
+
+$lit--white: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px white,
+  0 0 70px white, 0 0 80px white, 0 0 100px white, 0 0 150px white;
+
+$lit--green: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #5aff18,
+  0 0 70px #5aff18, 0 0 80px #5aff18, 0 0 100px #5aff18, 0 0 150px #5aff18;
+
+$lit--blue: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff,
+  0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
