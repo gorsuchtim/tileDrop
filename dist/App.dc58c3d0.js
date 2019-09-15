@@ -413,47 +413,25 @@ var CreateBlock = function CreateBlock() {
 
 var _default = CreateBlock;
 exports.default = _default;
-},{"../Utilities/BuildElement":"js/Components/Utilities/BuildElement.js","./GenericBlock":"js/Components/BuildGrid/GenericBlock.js"}],"js/Components/SetBlockSize/SetBlockSize.js":[function(require,module,exports) {
+},{"../Utilities/BuildElement":"js/Components/Utilities/BuildElement.js","./GenericBlock":"js/Components/BuildGrid/GenericBlock.js"}],"js/Components/SetGridSize/SetGridSize.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _Globals = _interopRequireDefault(require("../Globals/Globals"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SetBlockSize = {
-  totalRows: 10,
-  totalColumns: 6,
-  //squareSize: 0,
-  squareHeight: 0,
-  squareWidth: 0,
-  squareSize: 0,
-  totalBorderSpace: 0,
-  squareSizeString: 0,
-  //BLOCKS ARE TOO WIDE - WE NEED TO ACCOUNT FOR GAME BOARD WIDTH AS WELL AS HEIGHT -- TOO WIDE BY ABOUT HALF A BLOCK
+var SetGridSize = {
+  gridSize: 7,
   init: function init() {
-    // Need to account for border space per square = --border-width * 2.
-    //Only 2 because we only account for top and bottom, not left and right since we are building top down
-    var borderPerSquare = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--border-width")) * 2;
-    SetBlockSize.totalBorderSpace = borderPerSquare * SetBlockSize.totalRows;
-    var gameArea = SetBlockSize.totalRows * SetBlockSize.totalColumns; //console.log(gameArea);
-    // Determine size of individual blocks dynamically: each block is an equal division of dividing screen height by desired rows
-    // Accounting for the width of each square's border
-
-    SetBlockSize.squareSize = (_Globals.default.dom.gameHeight - SetBlockSize.totalBorderSpace) / SetBlockSize.totalRows; // var root = document.documentElement;
-    // root.style.setProperty("--block-width", SetBlockSize.squareSize + "px");
-    // root.style.setProperty("--block-height", SetBlockSize.squareSize + "px");
-
+    var root = document.documentElement;
+    root.style.setProperty("--grid-size", SetGridSize.gridSize);
+    root.style.setProperty("--grid-size", SetGridSize.gridSize);
     return true;
   }
 };
-var _default = SetBlockSize;
+var _default = SetGridSize;
 exports.default = _default;
-},{"../Globals/Globals":"js/Components/Globals/Globals.js"}],"js/Components/BuildGrid/BuildGrid.js":[function(require,module,exports) {
+},{}],"js/Components/BuildGrid/BuildGrid.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -467,48 +445,12 @@ var _CreateBlock = _interopRequireDefault(require("./CreateBlock"));
 
 var _Globals = _interopRequireDefault(require("../Globals/Globals"));
 
-var _SetBlockSize = _interopRequireDefault(require("../SetBlockSize/SetBlockSize"));
+var _SetGridSize = _interopRequireDefault(require("../SetGridSize/SetGridSize"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var gameGrid_x = 0;
-var gameGrid_y = 0; // NOW WE NEED TO SET UP WHEN TO STOP
-// we need to add to array also
-
-var anymoreBlocksNeeded = function anymoreBlocksNeeded(block) {
-  var rect = block.getBoundingClientRect();
-  return true;
-};
-
-var atBottomYet = function atBottomYet() {
-  if (gameGrid_y >= _Globals.default.dom.gameHeight - _SetBlockSize.default.squareSize * 2) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-var setGridPosition = function setGridPosition(block) {
-  var rect = block.getBoundingClientRect();
-
-  if (atBottomYet()) {
-    gameGrid_y = 0;
-    gameGrid_x += rect.width;
-  } else {
-    if (_Globals.default.game.allBlocks.length == 0) {
-      gameGrid_y = 0;
-    } else {
-      gameGrid_y += rect.height;
-    }
-  }
-
-  return block;
-};
-
-var setBlockPosition = function setBlockPosition(block) {
-  return _Utilities.default.elementLib.setAttributes(block, {
-    style: "top: ".concat(gameGrid_y, "px; left: ").concat(gameGrid_x, "px")
-  });
+var anymoreBlocksNeeded = function anymoreBlocksNeeded() {
+  return _Globals.default.game.allBlocks.length <= _SetGridSize.default.gridSize * _SetGridSize.default.gridSize - 1 ? true : false;
 };
 
 var addToArray = function addToArray(block) {
@@ -517,18 +459,15 @@ var addToArray = function addToArray(block) {
 
 var BuildGrid = function BuildGrid() {
   setTimeout(function () {
-    if (_Globals.default.game.allBlocks.length > 0) {
-      var newBlock = addToArray(setBlockPosition(setGridPosition((0, _CreateBlock.default)()))); //BuildGrid();
-    } else {
-      addToArray(setBlockPosition((0, _CreateBlock.default)()));
-      BuildGrid();
+    if (anymoreBlocksNeeded()) {
+      BuildGrid(addToArray((0, _CreateBlock.default)()));
     }
-  }, 250);
+  }, 25);
 };
 
 var _default = BuildGrid;
 exports.default = _default;
-},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../Globals/Globals":"js/Components/Globals/Globals.js","../SetBlockSize/SetBlockSize":"js/Components/SetBlockSize/SetBlockSize.js"}],"js/Components/Countdown/Countdown.js":[function(require,module,exports) {
+},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../Globals/Globals":"js/Components/Globals/Globals.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js"}],"js/Components/Countdown/Countdown.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1440,14 +1379,13 @@ var _DropBlocks = _interopRequireDefault(require("../DropBlocks/DropBlocks"));
 
 var _FlashTile = _interopRequireDefault(require("../FlashTile/FlashTile"));
 
-var _SetBlockSize = _interopRequireDefault(require("../SetBlockSize/SetBlockSize"));
+var _SetGridSize = _interopRequireDefault(require("../SetGridSize/SetGridSize"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Services = {
   init: function init() {
-    if (_SetBlockSize.default.init()) {
-      // BuildGrid(CreateBlock());
+    if (_SetGridSize.default.init()) {
       (0, _BuildGrid.default)();
     }
   },
@@ -1460,7 +1398,7 @@ var Services = {
 };
 var _default = Services;
 exports.default = _default;
-},{"../Globals/Globals":"js/Components/Globals/Globals.js","../BuildGrid/CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../DropBlocks/DropBlocks":"js/Components/DropBlocks/DropBlocks.js","../FlashTile/FlashTile":"js/Components/FlashTile/FlashTile.js","../SetBlockSize/SetBlockSize":"js/Components/SetBlockSize/SetBlockSize.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
+},{"../Globals/Globals":"js/Components/Globals/Globals.js","../BuildGrid/CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../DropBlocks/DropBlocks":"js/Components/DropBlocks/DropBlocks.js","../FlashTile/FlashTile":"js/Components/FlashTile/FlashTile.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1911,7 +1849,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65115" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56442" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

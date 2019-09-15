@@ -1,16 +1,16 @@
-:root {
-  --block-width: 0;
-  --block-height: 0;
-  --border-width: 1px;
+@import "_variables.scss";
+
+.wrap--blocks {
+  width: 90%;
+  height: 90%;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size), 1fr);
+  grid-template-rows: repeat(var(--grid-size), 1fr);
+  grid-gap: 0.5em 0.5em;
 }
 
 .block {
-  position: absolute;
-  width: var(--block-width);
-  height: var(--block-height);
-  border: var(--border-width) solid white;
-  //border: 1px solid white;
-  background-color: rgba(50, 125, 250, 0.25);
+  background-color: $block-blue;
   box-shadow: inset 0 0 30px rgba(50, 125, 250, 0.25);
   transform: scale(1);
   transition: opacity 0.5s ease-in-out;
@@ -21,11 +21,11 @@
   from {
     transform: scale(1);
   }
-
   to {
     transform: scale(-1.5);
   }
 }
+
 .falling {
   -webkit-animation: falling 1s ease-in-out 1;
   animation: falling 1s ease-in-out 1;
