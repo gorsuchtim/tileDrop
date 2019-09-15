@@ -2,16 +2,19 @@
 import util from "../Utilities/Utilities";
 import CreateTile from "./CreateTile";
 import Globals from "../Globals/Globals";
+import SetTileSize from "../SetTileSize/SetTileSize";
+
+var blocksRect = Globals.dom.blocksWrap.getBoundingClientRect();
 
 const setCoordinates = tile => {
   Globals.game.tile_x = util.math.createRandomNumber(
-    Globals.dom.width,
-    0,
+    blocksRect.right - SetTileSize.tileSize,
+    blocksRect.left - SetTileSize.tileSize,
     Globals.game.tile_x
   );
   Globals.game.tile_y = util.math.createRandomNumber(
-    Globals.dom.height,
-    0,
+    blocksRect.bottom - SetTileSize.tileSize,
+    blocksRect.top - SetTileSize.tileSize,
     Globals.game.tile_y
   );
   return tile;
