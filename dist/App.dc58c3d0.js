@@ -429,50 +429,7 @@ var SetGridSize = {
 };
 var _default = SetGridSize;
 exports.default = _default;
-},{}],"js/Components/BuildGrid/BuildGrid.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
-
-var _CreateBlock = _interopRequireDefault(require("./CreateBlock"));
-
-var _Globals = _interopRequireDefault(require("../Globals/Globals"));
-
-var _Services = _interopRequireDefault(require("../Services/Services"));
-
-var _SetGridSize = _interopRequireDefault(require("../SetGridSize/SetGridSize"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var anymoreBlocksNeeded = function anymoreBlocksNeeded() {
-  return _Globals.default.game.allBlocks.length <= _SetGridSize.default.gridSize * _SetGridSize.default.gridSize - 1 ? true : false;
-};
-
-var addToArray = function addToArray(block) {
-  return _Globals.default.game.allBlocks.push(block);
-};
-
-var BuildGrid = function BuildGrid() {
-  setTimeout(function () {
-    if (anymoreBlocksNeeded()) {
-      BuildGrid(addToArray((0, _CreateBlock.default)()));
-    } else {
-      _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks); // Services.startCountdown();
-
-
-      _Services.default.runGame();
-    }
-  }, 25);
-};
-
-var _default = BuildGrid;
-exports.default = _default;
-},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../Globals/Globals":"js/Components/Globals/Globals.js","../Services/Services":"js/Components/Services/Services.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js"}],"js/Components/Countdown/Countdown.js":[function(require,module,exports) {
+},{}],"js/Components/Countdown/Countdown.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -494,8 +451,9 @@ var Countdown = function Countdown() {
 
   _Utilities.default.elementLib.classChange(_Globals.default.dom.timerWrap, "remove", "hidden");
 
-  _Utilities.default.timer.timedCount(_Globals.default.dom.timerElement); //Globals.music.audio.play();
-  // Hide timer
+  _Utilities.default.timer.timedCount(_Globals.default.dom.timerElement);
+
+  _Globals.default.music.audio.play(); // Hide timer
 
 
   setTimeout(function () {
@@ -510,7 +468,49 @@ var Countdown = function Countdown() {
 
 var _default = Countdown;
 exports.default = _default;
-},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../Globals/Globals":"js/Components/Globals/Globals.js","../Services/Services":"js/Components/Services/Services.js"}],"js/Components/DropBlocks/DropBlocks.js":[function(require,module,exports) {
+},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../Globals/Globals":"js/Components/Globals/Globals.js","../Services/Services":"js/Components/Services/Services.js"}],"js/Components/BuildGrid/BuildGrid.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
+
+var _CreateBlock = _interopRequireDefault(require("./CreateBlock"));
+
+var _Globals = _interopRequireDefault(require("../Globals/Globals"));
+
+var _SetGridSize = _interopRequireDefault(require("../SetGridSize/SetGridSize"));
+
+var _Countdown = _interopRequireDefault(require("../Countdown/Countdown"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var anymoreBlocksNeeded = function anymoreBlocksNeeded() {
+  return _Globals.default.game.allBlocks.length <= _SetGridSize.default.gridSize * _SetGridSize.default.gridSize - 1 ? true : false;
+};
+
+var addToArray = function addToArray(block) {
+  return _Globals.default.game.allBlocks.push(block);
+};
+
+var BuildGrid = function BuildGrid() {
+  setTimeout(function () {
+    if (anymoreBlocksNeeded()) {
+      BuildGrid(addToArray((0, _CreateBlock.default)()));
+    } else {
+      _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks);
+
+      (0, _Countdown.default)();
+    }
+  }, 25);
+};
+
+var _default = BuildGrid;
+exports.default = _default;
+},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../Globals/Globals":"js/Components/Globals/Globals.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js"}],"js/Components/DropBlocks/DropBlocks.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -554,11 +554,13 @@ var removeBlocks = function removeBlocks(howManyBlocksToDrop) {
 
 var DropBlocks = function DropBlocks() {
   if (!_Globals.default.game.paused) {
+    console.log(_Globals.default.game.allBlocks.length);
+
     if (_Globals.default.game.allBlocks.length) {
       setTimeout(function () {
         removeBlocks(defineTotalBlocksToDrop());
         DropBlocks();
-      }, _Globals.default.music.bpm[0]); // change to match beat of music.bpm[1]
+      }, 1000); // change to match beat of music.bpm[1]
     } else {
       setTimeout(function () {
         _Globals.default.game.game_over = true;
@@ -1388,8 +1390,6 @@ exports.default = void 0;
 
 var _BuildGrid = _interopRequireDefault(require("../BuildGrid/BuildGrid"));
 
-var _Countdown = _interopRequireDefault(require("../Countdown/Countdown"));
-
 var _DropBlocks = _interopRequireDefault(require("../DropBlocks/DropBlocks"));
 
 var _FlashTile = _interopRequireDefault(require("../FlashTile/FlashTile"));
@@ -1408,17 +1408,14 @@ var Services = {
       }
     }
   },
-  startCountdown: function startCountdown() {
-    (0, _Countdown.default)();
-  },
   runGame: function runGame() {
-    // DropBlocks();
-    (0, _FlashTile.default)(); // blocksRemaining();
+    (0, _DropBlocks.default)();
+    (0, _FlashTile.default)();
   }
 };
 var _default = Services;
 exports.default = _default;
-},{"../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../DropBlocks/DropBlocks":"js/Components/DropBlocks/DropBlocks.js","../FlashTile/FlashTile":"js/Components/FlashTile/FlashTile.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js","../SetTileSize/SetTileSize":"js/Components/SetTileSize/SetTileSize.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
+},{"../BuildGrid/BuildGrid":"js/Components/BuildGrid/BuildGrid.js","../DropBlocks/DropBlocks":"js/Components/DropBlocks/DropBlocks.js","../FlashTile/FlashTile":"js/Components/FlashTile/FlashTile.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js","../SetTileSize/SetTileSize":"js/Components/SetTileSize/SetTileSize.js"}],"js/Components/Utilities/Utilities.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1866,7 +1863,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49351" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51061" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

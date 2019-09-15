@@ -1,7 +1,7 @@
 "use strict";
 
 import BuildGrid from "../BuildGrid/BuildGrid";
-import Countdown from "../Countdown/Countdown";
+
 import DropBlocks from "../DropBlocks/DropBlocks";
 import FlashTile from "../FlashTile/FlashTile";
 import SetGridSize from "../SetGridSize/SetGridSize";
@@ -15,13 +15,9 @@ const Services = {
       }
     }
   },
-  startCountdown() {
-    Countdown();
-  },
   runGame() {
-    // DropBlocks();
+    DropBlocks();
     FlashTile();
-    // blocksRemaining();
   }
 };
 

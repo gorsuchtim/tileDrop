@@ -9,7 +9,7 @@ const Countdown = () => {
   Globals.dom.timerElement.innerHTML = util.timer.counter;
   util.elementLib.classChange(Globals.dom.timerWrap, "remove", "hidden");
   util.timer.timedCount(Globals.dom.timerElement);
-  //Globals.music.audio.play();
+  Globals.music.audio.play();
 
   // Hide timer
   setTimeout(() => {
