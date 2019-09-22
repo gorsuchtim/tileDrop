@@ -1,4 +1,6 @@
 "use strict";
+
+import Powerups from "../Powerups/Powerups";
 import Globals from "../Globals/Globals";
 import util from "../Utilities/Utilities";
 
@@ -12,38 +14,39 @@ When a block drops, remove it from allBlocks and push it to droppedBlocks
 const defineTotalBlocksToDrop = () => {
   var blocksToDrop;
   if (Globals.game.playerScore >= 20) {
-    blocksToDrop = Math.floor(Globals.game.playerScore / 10);
+    blocksToDrop =
+      Math.floor(Globals.game.playerScore / 10) -
+      Powerups.decreaseDroppedBlocks;
   } else {
     blocksToDrop = 1;
   }
   return blocksToDrop;
 };
-const removeBlocks = howManyBlocksToDrop => {
-  for (var i = 0; i < howManyBlocksToDrop; i++) {
-    Globals.game.droppedBlocks.push(Globals.game.allBlocks[0]);
-    util.elementLib.classChange(
-      Globals.game.allBlocks[0],
-      "add",
-      "falling",
-      "clear"
-    );
+const removeBlocks = totalBlocks => {
+  var blocksToDrop = Globals.game.allBlocks.slice(0, totalBlocks);
+
+  blocksToDrop.forEach(block => {
+    util.elementLib.classChange(block, "add", "falling", "clear");
+    Globals.game.droppedBlocks.push(block);
     Globals.game.allBlocks.shift();
-  }
+  });
 };
 
 const DropBlocks = () => {
-  if (!Globals.game.paused) {
-    console.log(Globals.game.allBlocks.length);
+  if (!Globals.game.gameIsPaused) {
     if (Globals.game.allBlocks.length) {
       setTimeout(() => {
         removeBlocks(defineTotalBlocksToDrop());
         DropBlocks();
-      }, 1000); // change to match beat of music.bpm[1]
+      }, Globals.music.bpm);
     } else {
       setTimeout(() => {
-        Globals.game.game_over = true;
+        Globals.game.gameOver = true;
+        Globals.dom.pauseButton.classList.add("hidden");
+        Globals.dom.startButton.textCOntent = "Play Again";
+        Globals.dom.startButton.classList.remove("hidden");
         console.log("Game Over, DORK");
-      }, 0); // this was 500 - what happens at 0
+      }, Globals.music.bpm);
     }
   }
 };
