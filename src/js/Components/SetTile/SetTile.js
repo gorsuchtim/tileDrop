@@ -2,21 +2,25 @@
 import util from "../Utilities/Utilities";
 import CreateTile from "./CreateTile";
 import Globals from "../Globals/Globals";
-import SetTileSize from "../SetTileSize/SetTileSize";
 
 var blocksRect = Globals.dom.blocksWrap.getBoundingClientRect();
 
+var tileSize = 64;
+var root = document.documentElement;
+root.style.setProperty("--tile-size", `${tileSize}px`);
+
 const setCoordinates = tile => {
   Globals.game.tile_x = util.math.createRandomNumber(
-    blocksRect.right - SetTileSize.tileSize,
-    blocksRect.left - SetTileSize.tileSize,
+    blocksRect.right - tileSize,
+    blocksRect.left - tileSize,
     Globals.game.tile_x
   );
   Globals.game.tile_y = util.math.createRandomNumber(
-    blocksRect.bottom - SetTileSize.tileSize,
-    blocksRect.top - SetTileSize.tileSize,
+    blocksRect.bottom - tileSize,
+    blocksRect.top - tileSize,
     Globals.game.tile_y
   );
+
   return tile;
 };
 
@@ -27,8 +31,6 @@ const setTilePos = tile => {
   return tile;
 };
 
-const SetTile = () => {
-  return setTilePos(setCoordinates(CreateTile()));
-};
+const SetTile = () => setTilePos(setCoordinates(CreateTile()));
 
 export default SetTile;
