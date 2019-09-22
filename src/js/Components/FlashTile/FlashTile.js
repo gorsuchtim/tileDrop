@@ -17,6 +17,8 @@ const beatOrSync = () => {
 };
 
 const increaseFlashCount = () => {
+  Globals.game.totalFlashes++;
+
   Globals.game.flashColor == "lit--white"
     ? Globals.game.beatCount++
     : Globals.game.syncCount++;
@@ -57,10 +59,10 @@ const FlashTile = () => {
   if (!Globals.game.game_over && !Globals.game.paused) {
     setTimeout(() => {
       tile.parentNode.removeChild(tile);
-    }, Globals.music.bpm[1]); // set to music.bpm
+    }, Globals.music.bpm); // set to music.bpm
     setTimeout(() => {
       FlashTile();
-    }, Globals.music.bpm[1]);
+    }, Globals.music.bpm);
   } else {
     tile.parentNode.removeChild(tile);
   }
