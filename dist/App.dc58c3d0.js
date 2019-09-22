@@ -486,10 +486,16 @@ var _SetGridSize = _interopRequireDefault(require("../SetGridSize/SetGridSize"))
 
 var _Countdown = _interopRequireDefault(require("../Countdown/Countdown"));
 
+var _Services = _interopRequireDefault(require("../Services/Services"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var anymoreBlocksNeeded = function anymoreBlocksNeeded() {
-  return _Globals.default.game.allBlocks.length <= _SetGridSize.default.gridSize * _SetGridSize.default.gridSize - 1 ? true : false;
+  if (_Globals.default.game.allBlocks.length <= _SetGridSize.default.gridSize * _SetGridSize.default.gridSize - 1) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 var addToArray = function addToArray(block) {
@@ -501,16 +507,19 @@ var BuildGrid = function BuildGrid() {
     if (anymoreBlocksNeeded()) {
       BuildGrid(addToArray((0, _CreateBlock.default)()));
     } else {
-      _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks);
+      _Utilities.default.elementLib.shuffleArray(_Globals.default.game.allBlocks); // For build:
+      //Countdown();
+      // For dev:
 
-      (0, _Countdown.default)();
+
+      _Services.default.runGame();
     }
   }, 25);
 };
 
 var _default = BuildGrid;
 exports.default = _default;
-},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../Globals/Globals":"js/Components/Globals/Globals.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js"}],"js/Components/DropBlocks/DropBlocks.js":[function(require,module,exports) {
+},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../Globals/Globals":"js/Components/Globals/Globals.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../Services/Services":"js/Components/Services/Services.js"}],"js/Components/DropBlocks/DropBlocks.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1300,8 +1309,8 @@ var Scoring = function Scoring(tile) {
 
   changeTileBackground(tile); // Update score in DOM
 
-  _Globals.default.dom.score.textContent = "Score: ".concat(_Globals.default.game.playerScore);
-  console.log(_Globals.default.game.playerScore); // Flash the current score beneath the tile in the DOM
+  _Globals.default.dom.score.textContent = "Score: ".concat(_Globals.default.game.playerScore); // Need to set streak to 0 if a player has not tapped the tile when it has flashed
+  // Flash the current score beneath the tile in the DOM
   //utilities.classChangeDelay(tile.firstElementChild, 450, "flashScore");
 };
 
@@ -1863,7 +1872,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51061" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52680" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

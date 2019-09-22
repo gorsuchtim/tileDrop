@@ -1,7 +1,6 @@
 "use strict";
 
 import BuildGrid from "../BuildGrid/BuildGrid";
-
 import DropBlocks from "../DropBlocks/DropBlocks";
 import FlashTile from "../FlashTile/FlashTile";
 import SetGridSize from "../SetGridSize/SetGridSize";

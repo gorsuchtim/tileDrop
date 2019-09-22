@@ -75,7 +75,8 @@ const Scoring = tile => {
 
   // Update score in DOM
   Globals.dom.score.textContent = `Score: ${Globals.game.playerScore}`;
-  console.log(Globals.game.playerScore);
+
+  // Need to set streak to 0 if a player has not tapped the tile when it has flashed
 
   // Flash the current score beneath the tile in the DOM
   //utilities.classChangeDelay(tile.firstElementChild, 450, "flashScore");
