@@ -5,8 +5,8 @@ const Globals = {
     blocksWrap: document.querySelector(".wrap--blocks"),
     startButton: document.querySelector(".start"),
     pauseButton: document.querySelector(".pause"),
-    streak: document.querySelector(".dom__streak"),
-    score: document.querySelector(".dom__score"),
+    domStreak: document.querySelector(".dom__streak"),
+    domScore: document.querySelector(".dom__score"),
     timerElement: document.querySelector(".dom__timer"),
     timerWrap: document.querySelector(".wrap--timer")
   },
