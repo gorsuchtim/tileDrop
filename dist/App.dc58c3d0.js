@@ -574,11 +574,10 @@ var removeBlocks = function removeBlocks(totalBlocks) {
 
 var DropBlocks = function DropBlocks() {
   if (!_Globals.default.game.gameIsPaused) {
-    if (_Globals.default.game.allBlocks.length) {
-      setTimeout(function () {
-        removeBlocks(defineTotalBlocksToDrop());
-        DropBlocks();
-      }, _Globals.default.music.bpm);
+    if (_Globals.default.game.allBlocks.length) {// setTimeout(() => {
+      //   removeBlocks(defineTotalBlocksToDrop());
+      //   DropBlocks();
+      // }, Globals.music.bpm);
     } else {
       setTimeout(function () {
         _Globals.default.game.gameOver = true;
@@ -1212,7 +1211,8 @@ var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ReplaceBlocks = function ReplaceBlocks(totalBlocks) {
-  var blocksToReplace = Globalsgame.droppedBlocks.slice(0, totalBlocks);
+  var blocksToReplace = _Globals.default.game.droppedBlocks.slice(0, totalBlocks);
+
   blocksToReplace.forEach(function (block) {
     _Utilities.default.elementLib.classChange(block, "remove", "falling", "clear");
 
@@ -1224,7 +1224,22 @@ var ReplaceBlocks = function ReplaceBlocks(totalBlocks) {
 
 var _default = ReplaceBlocks;
 exports.default = _default;
-},{"../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/Scoring/Scoring.js":[function(require,module,exports) {
+},{"../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/UpdateTileBackground/UpdateTileBackground.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var UpdateTileBackground = function UpdateTileBackground() {
+  // do stuff
+  console.log("utb running");
+};
+
+var _default = UpdateTileBackground;
+exports.default = _default;
+},{}],"js/Components/Scoring/Scoring.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1239,6 +1254,8 @@ var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
 var _ReplaceBlocks = _interopRequireDefault(require("../ReplaceBlocks/ReplaceBlocks"));
 
 var _Powerups = _interopRequireDefault(require("../Powerups/Powerups"));
+
+var _UpdateTileBackground = _interopRequireDefault(require("../UpdateTileBackground/UpdateTileBackground"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1279,13 +1296,13 @@ var Scoring = function Scoring(tile) {
   _Utilities.default.elementLib.classCheck(tile, "lit--green") ? (0, _ReplaceBlocks.default)(3) : (0, _ReplaceBlocks.default)(1);
   _Globals.default.game.playerScore++;
   _Globals.default.dom.domScore.textContent = "Score: ".concat(_Globals.default.game.playerScore);
-  _Globals.default.game.syncCount > 0 ? trackSyncStreak(tile) : false;
+  _Globals.default.game.syncCount > 0 ? trackSyncStreak(tile) : (0, _UpdateTileBackground.default)();
   changeTileBackground(tile);
 };
 
 var _default = Scoring;
 exports.default = _default;
-},{"../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../ReplaceBlocks/ReplaceBlocks":"js/Components/ReplaceBlocks/ReplaceBlocks.js","../Powerups/Powerups":"js/Components/Powerups/Powerups.js"}],"js/Components/FlashTile/FlashTile.js":[function(require,module,exports) {
+},{"../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../ReplaceBlocks/ReplaceBlocks":"js/Components/ReplaceBlocks/ReplaceBlocks.js","../Powerups/Powerups":"js/Components/Powerups/Powerups.js","../UpdateTileBackground/UpdateTileBackground":"js/Components/UpdateTileBackground/UpdateTileBackground.js"}],"js/Components/FlashTile/FlashTile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1342,12 +1359,10 @@ var FlashTile = function FlashTile() {
   increaseFlashCount();
 
   if (!_Globals.default.game.game_over && !_Globals.default.game.paused) {
-    setTimeout(function () {
-      tile.parentNode.removeChild(tile);
-    }, _Globals.default.music.bpm);
-    setTimeout(function () {
-      FlashTile();
-    }, _Globals.default.music.bpm);
+    setTimeout(function () {//  tile.parentNode.removeChild(tile);
+    }, _Globals.default.music.bpm); // setTimeout(() => {
+    //   FlashTile();
+    // }, Globals.music.bpm);
   } else {
     tile.parentNode.removeChild(tile);
   }

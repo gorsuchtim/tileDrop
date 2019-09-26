@@ -4,6 +4,7 @@ import Globals from "../Globals/Globals";
 import util from "../Utilities/Utilities";
 import ReplaceBlocks from "../ReplaceBlocks/ReplaceBlocks";
 import Powerups from "../Powerups/Powerups";
+import UpdateTileBackground from "../UpdateTileBackground/UpdateTileBackground";
 
 /*
 Fill the background color of the tile when you tap it by x% each tap
@@ -48,7 +49,7 @@ const Scoring = tile => {
   Globals.game.playerScore++;
   Globals.dom.domScore.textContent = `Score: ${Globals.game.playerScore}`;
 
-  Globals.game.syncCount > 0 ? trackSyncStreak(tile) : false;
+  Globals.game.syncCount > 0 ? trackSyncStreak(tile) : UpdateTileBackground();
 
   changeTileBackground(tile);
 };
