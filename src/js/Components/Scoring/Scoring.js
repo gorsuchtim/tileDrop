@@ -5,20 +5,30 @@ import util from "../Utilities/Utilities";
 import ReplaceBlocks from "../ReplaceBlocks/ReplaceBlocks";
 import Powerups from "../Powerups/Powerups";
 
+/*
+Fill the background color of the tile when you tap it by x% each tap
+when the background tile is filled THEN mupschroops is activated.  
+once you fill mupschroops background color then you get the bonus
+
+don't track totaltaps or totalflashes - just fill the tile by x% per tap and send out mupshroops
+when you fill mupshroops THEN you decrease droppedblocks rate by x%
+
+*/
+
 const trackSyncStreak = tile => {
   // Increase syncStreak count with each tap
-  Globals.game.playerStreakCount++;
+  Globals.game.playerStreak++;
 
   // Update streak in DOM
-  Globals.dom.domStreak.textContent = `Streak: ${Globals.game.playerSyncStreak}`;
+  Globals.dom.domStreak.textContent = `Streak: ${Globals.game.playerStreak}`;
 
   // If the player has continued to stay on the streak during the syncCount, let them know by flashing blue
-  if (Globals.game.playerStreakCount == Globals.game.syncCount) {
+  if (Globals.game.playerStreak == Globals.game.syncCount) {
     util.elementLib.classChangeDelay(tile, 250, "lit--blue");
 
-    if (Globals.game.playerStreakCount == Globals.game.syncLength) {
+    if (Globals.game.playerStreak == Globals.game.syncLength) {
       Globals.game.playerScore += Globals.game.syncLength * 10;
-      Globals.game.playerStreakCount = 0;
+      Globals.game.playerStreak = 0;
       ReplaceBlocks(Globals.game.syncLength * 10 * 2);
     }
   }
@@ -36,16 +46,11 @@ const Scoring = tile => {
     : ReplaceBlocks(1);
 
   Globals.game.playerScore++;
-  Powerups.decreaseDroppedBlocks();
-
-  // Run powerups: decrease dropped blocks at % 100 = 0
-  // Globals.game.playerScore % 100 == 0 ? Powerups.decreasedDroppedBlocks() : false?
+  Globals.dom.domScore.textContent = `Score: ${Globals.game.playerScore}`;
 
   Globals.game.syncCount > 0 ? trackSyncStreak(tile) : false;
 
   changeTileBackground(tile);
-
-  Globals.dom.domScore.textContent = `Score: ${Globals.game.playerScore}`;
 };
 
 export default Scoring;

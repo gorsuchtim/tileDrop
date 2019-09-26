@@ -17,8 +17,6 @@ const beatOrSync = () => {
 };
 
 const increaseFlashCount = () => {
-  Globals.game.totalFlashes++;
-
   Globals.game.flashColor == "lit--white"
     ? Globals.game.beatCount++
     : Globals.game.syncCount++;
@@ -50,16 +48,13 @@ const FlashTile = () => {
   tile.addEventListener("click", function() {
     Scoring(this);
   });
-  //util.setEvents.methods.dynamicEvents();
 
   increaseFlashCount();
 
-  // Comment this out so we can debug Scoring.js tile.firstElementChild.nextElementSibling
-  // Remove Tile after one beat of music
   if (!Globals.game.game_over && !Globals.game.paused) {
     setTimeout(() => {
       tile.parentNode.removeChild(tile);
-    }, Globals.music.bpm); // set to music.bpm
+    }, Globals.music.bpm);
     setTimeout(() => {
       FlashTile();
     }, Globals.music.bpm);

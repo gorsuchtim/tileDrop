@@ -5,8 +5,7 @@ import util from "../Utilities/Utilities";
 
 const Powerups = {
   decreaseDroppedBlocks() {
-    console.log(Globals.game.playerScore / Globals.game.totalFlashes);
-    return Globals.game.totalFlashes / Globals.game.playerScore;
+    console.log("ddb running");
   }
 };
 

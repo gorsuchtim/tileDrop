@@ -1,5 +1,6 @@
 :root {
   --grid-size: 0;
+  --tile-size: 0;
 }
 
 * {
@@ -64,10 +65,6 @@ canvas {
   box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #5aff18, 0 0 70px #5aff18, 0 0 80px #5aff18, 0 0 100px #5aff18, 0 0 150px #5aff18;
 }
 
-:root {
-  --grid-size: 0;
-}
-
 .wrap--blocks {
   position: relative;
   width: 90%;
@@ -94,12 +91,7 @@ canvas {
   }
 }
 .falling {
-  -webkit-animation: falling 1s ease-in-out 1;
   animation: falling 1s ease-in-out 1;
-}
-
-:root {
-  --tile-size: 0;
 }
 
 .tile {
@@ -126,8 +118,6 @@ canvas {
   }
 }
 .flashScore {
-  -webkit-animation: flashScore 0.75s ease-in-out 1;
-  -moz-animation: flashScore 0.75s ease-in-out 1;
   animation: flashScore 0.75s ease-in-out 1;
 }
 
@@ -156,44 +146,15 @@ canvas {
   }
 }
 .changeColor--white {
-  -webkit-animation: changeColor--white 0.2s ease-in-out 1;
-  -moz-animation: changeColor--white 0.2s ease-in-out 1;
   animation: changeColor--white 0.2s ease-in-out 1;
 }
 
 .changeColor--blue {
-  -webkit-animation: changeColor--blue 0.2s ease-in-out 1;
-  -moz-animation: changeColor--blue 0.2s ease-in-out 1;
   animation: changeColor--blue 0.2s ease-in-out 1;
 }
 
 .changeColor--green {
-  -webkit-animation: changeColor--green 0.2s ease-in-out 1;
-  -moz-animation: changeColor--green 0.2s ease-in-out 1;
   animation: changeColor--green 0.2s ease-in-out 1;
-}
-
-/* From animate.css */
-@keyframes shake {
-  from, to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-  10%, 30%, 50%, 70%, 90% {
-    -webkit-transform: translate3d(-10px, 0, 0);
-    transform: translate3d(-10px, 0, 0);
-  }
-  20%, 40%, 60%, 80% {
-    -webkit-transform: translate3d(10px, 0, 0);
-    transform: translate3d(10px, 0, 0);
-  }
-}
-.shake {
-  -webkit-animation: shake 0.35s ease-in-out 1;
-  -moz-animation: shake 0.35s ease-in-out 1;
-  animation: shake 0.35s ease-in-out 1;
-  -webkit-animation-name: shake;
-  animation-name: shake;
 }
 
 .wrap--timer {

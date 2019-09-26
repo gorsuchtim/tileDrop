@@ -13,7 +13,6 @@ const Globals = {
   game: {
     allBlocks: [],
     droppedBlocks: [],
-    totalFlashes: 0,
     beatCount: 0,
     syncCount: 0,
     flashColor: undefined,
@@ -23,7 +22,6 @@ const Globals = {
     playerStreak: 0,
     startSync: 0,
     syncLength: 0,
-    playerStreakCount: 0,
     gameIsPaused: false,
     gameOver: false
   },

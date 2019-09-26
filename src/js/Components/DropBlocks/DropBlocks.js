@@ -4,13 +4,6 @@ import Powerups from "../Powerups/Powerups";
 import Globals from "../Globals/Globals";
 import util from "../Utilities/Utilities";
 
-/*
-Blocks to drop are in line with players score in increments of 10
-At start of game 1 block drops at a time
-At 20 points, 2 blocks drop -> at 30 points, 3 drop and so on
-When a block drops, remove it from allBlocks and push it to droppedBlocks
-*/
-
 const defineTotalBlocksToDrop = () => {
   var blocksToDrop;
   if (Globals.game.playerScore >= 20) {
