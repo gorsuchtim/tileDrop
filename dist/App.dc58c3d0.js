@@ -574,10 +574,11 @@ var removeBlocks = function removeBlocks(totalBlocks) {
 
 var DropBlocks = function DropBlocks() {
   if (!_Globals.default.game.gameIsPaused) {
-    if (_Globals.default.game.allBlocks.length) {// setTimeout(() => {
-      //   removeBlocks(defineTotalBlocksToDrop());
-      //   DropBlocks();
-      // }, Globals.music.bpm);
+    if (_Globals.default.game.allBlocks.length) {
+      setTimeout(function () {
+        removeBlocks(defineTotalBlocksToDrop());
+        DropBlocks();
+      }, _Globals.default.music.bpm);
     } else {
       setTimeout(function () {
         _Globals.default.game.gameOver = true;
@@ -1359,10 +1360,12 @@ var FlashTile = function FlashTile() {
   increaseFlashCount();
 
   if (!_Globals.default.game.game_over && !_Globals.default.game.paused) {
-    setTimeout(function () {//  tile.parentNode.removeChild(tile);
-    }, _Globals.default.music.bpm); // setTimeout(() => {
-    //   FlashTile();
-    // }, Globals.music.bpm);
+    setTimeout(function () {
+      tile.parentNode.removeChild(tile);
+    }, _Globals.default.music.bpm);
+    setTimeout(function () {
+      FlashTile();
+    }, _Globals.default.music.bpm);
   } else {
     tile.parentNode.removeChild(tile);
   }
@@ -1856,7 +1859,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58248" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51087" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
