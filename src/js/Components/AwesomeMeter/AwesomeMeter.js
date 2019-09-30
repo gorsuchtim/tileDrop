@@ -21,7 +21,7 @@ const emptyMeter = () => {
   root.style.setProperty("--meter-fill", `${meterValue}%`);
 
   // Replace blocks after full meter
-  ReplaceBlocks(Math.floor(Globals.game.playerScore / 10));
+  ReplaceBlocks(Math.floor(Globals.game.playerScore / 100));
 
   setTimeout(() => {
     meterValue = 0;

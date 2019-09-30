@@ -36,7 +36,7 @@ const FlashTile = () => {
   }
 
   // Determine if current flash is a beat (white flash) or sync (green flash)
-  if (Globals.game.playerScore >= 50) {
+  if (Globals.game.playerScore >= 1000) {
     if (beatOrSync()) {
       Globals.game.flashColor = "lit--white";
     } else {

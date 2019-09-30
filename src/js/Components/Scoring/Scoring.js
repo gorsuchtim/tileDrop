@@ -33,7 +33,8 @@ const changeTileBackground = tile => {
 const Scoring = tile => {
   ReplaceBlocks(1);
 
-  Globals.game.playerScore++;
+  //Globals.game.playerScore++;
+  Globals.game.playerScore += 100;
   Globals.dom.domScore.textContent = `Score: ${Globals.game.playerScore}`;
 
   Globals.game.syncCount > 0 ? trackSyncStreak(tile) : AwesomeMeter();

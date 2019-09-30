@@ -351,9 +351,6 @@ var Globals = {
     gameIsPaused: false,
     gameOver: false
   },
-  powerups: {
-    decreaseDroppedBlocks: 0
-  },
   music: {
     bpm: 1500,
     audio: document.querySelector(".audio__player")
@@ -527,11 +524,10 @@ var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var defineTotalBlocksToDrop = function defineTotalBlocksToDrop() {
-  console.log("ddb is " + _Globals.default.powerups.decreaseDroppedBlocks);
   var blocksToDrop;
 
-  if (_Globals.default.game.playerScore >= 10) {
-    blocksToDrop = Math.floor(_Globals.default.game.playerScore / 10) - _Globals.default.powerups.decreaseDroppedBlocks;
+  if (_Globals.default.game.playerScore >= 5000) {
+    blocksToDrop = Math.floor(_Globals.default.game.playerScore / 100);
   } else {
     blocksToDrop = 1;
   }
@@ -1235,7 +1231,7 @@ var emptyMeter = function emptyMeter() {
   meterValue += 10;
   root.style.setProperty("--meter-fill", "".concat(meterValue, "%")); // Replace blocks after full meter
 
-  (0, _ReplaceBlocks.default)(Math.floor(_Globals.default.game.playerScore / 10));
+  (0, _ReplaceBlocks.default)(Math.floor(_Globals.default.game.playerScore / 100));
   setTimeout(function () {
     meterValue = 0;
     root.style.setProperty("--meter-fill", "".concat(meterValue, "%"));
@@ -1297,8 +1293,9 @@ var changeTileBackground = function changeTileBackground(tile) {
 };
 
 var Scoring = function Scoring(tile) {
-  (0, _ReplaceBlocks.default)(1);
-  _Globals.default.game.playerScore++;
+  (0, _ReplaceBlocks.default)(1); //Globals.game.playerScore++;
+
+  _Globals.default.game.playerScore += 100;
   _Globals.default.dom.domScore.textContent = "Score: ".concat(_Globals.default.game.playerScore);
   _Globals.default.game.syncCount > 0 ? trackSyncStreak(tile) : (0, _AwesomeMeter.default)();
   changeTileBackground(tile);
@@ -1351,7 +1348,7 @@ var FlashTile = function FlashTile() {
   } // Determine if current flash is a beat (white flash) or sync (green flash)
 
 
-  if (_Globals.default.game.playerScore >= 50) {
+  if (_Globals.default.game.playerScore >= 1000) {
     if (beatOrSync()) {
       _Globals.default.game.flashColor = "lit--white";
     } else {

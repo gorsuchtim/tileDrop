@@ -4,13 +4,9 @@ import Globals from "../Globals/Globals";
 import util from "../Utilities/Utilities";
 
 const defineTotalBlocksToDrop = () => {
-  console.log("ddb is " + Globals.powerups.decreaseDroppedBlocks);
-
   var blocksToDrop;
-  if (Globals.game.playerScore >= 10) {
-    blocksToDrop =
-      Math.floor(Globals.game.playerScore / 10) -
-      Globals.powerups.decreaseDroppedBlocks;
+  if (Globals.game.playerScore >= 5000) {
+    blocksToDrop = Math.floor(Globals.game.playerScore / 100);
   } else {
     blocksToDrop = 1;
   }

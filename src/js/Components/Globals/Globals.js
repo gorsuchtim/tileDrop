@@ -26,9 +26,6 @@ const Globals = {
     gameIsPaused: false,
     gameOver: false
   },
-  powerups: {
-    decreaseDroppedBlocks: 0
-  },
   music: {
     bpm: 1500,
     audio: document.querySelector(".audio__player")
