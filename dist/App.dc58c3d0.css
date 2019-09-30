@@ -1,6 +1,7 @@
 :root {
   --grid-size: 0;
   --tile-size: 0;
+  --meter-fill: 0;
 }
 
 * {
@@ -171,12 +172,44 @@ canvas {
 }
 
 .wrap__awesomemeter {
+  position: relative;
   width: 75%;
   height: 1em;
   border: 1px solid white;
   border-radius: 20px;
-  background: linear-gradient(to right, #228dff 50%, white 50%);
+}
+
+.meter {
+  position: absolute;
+  width: var(--meter-fill);
+  height: 100%;
+  border-radius: 20px;
+  background-color: #228dff;
   box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff, 0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
+  transition: width 0.2s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.3);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.3);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+.heartBeat {
+  animation-name: heartBeat;
+  animation-duration: 1.3s;
+  animation-timing-function: ease-in-out;
 }
 
 .hidden {

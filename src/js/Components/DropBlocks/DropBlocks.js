@@ -1,6 +1,5 @@
 "use strict";
 
-import Powerups from "../Powerups/Powerups";
 import Globals from "../Globals/Globals";
 import util from "../Utilities/Utilities";
 
@@ -9,7 +8,7 @@ const defineTotalBlocksToDrop = () => {
   if (Globals.game.playerScore >= 20) {
     blocksToDrop =
       Math.floor(Globals.game.playerScore / 10) -
-      Powerups.decreaseDroppedBlocks;
+      Globals.powerups.decreaseDroppedBlocks;
   } else {
     blocksToDrop = 1;
   }
