@@ -333,7 +333,8 @@ var Globals = {
     domStreak: document.querySelector(".dom__streak"),
     domScore: document.querySelector(".dom__score"),
     timerElement: document.querySelector(".dom__timer"),
-    timerWrap: document.querySelector(".wrap--timer")
+    timerWrap: document.querySelector(".wrap--timer"),
+    awesomeMeter: document.querySelector(".wrap__awesomemeter")
   },
   game: {
     allBlocks: [],
@@ -412,7 +413,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var SetGridSize = {
-  gridSize: 5,
+  gridSize: 15,
   init: function init() {
     var root = document.documentElement;
     root.style.setProperty("--grid-size", SetGridSize.gridSize);
@@ -526,9 +527,10 @@ var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var defineTotalBlocksToDrop = function defineTotalBlocksToDrop() {
+  console.log("ddb is " + _Globals.default.powerups.decreaseDroppedBlocks);
   var blocksToDrop;
 
-  if (_Globals.default.game.playerScore >= 20) {
+  if (_Globals.default.game.playerScore >= 10) {
     blocksToDrop = Math.floor(_Globals.default.game.playerScore / 10) - _Globals.default.powerups.decreaseDroppedBlocks;
   } else {
     blocksToDrop = 1;
@@ -538,6 +540,8 @@ var defineTotalBlocksToDrop = function defineTotalBlocksToDrop() {
 };
 
 var removeBlocks = function removeBlocks(totalBlocks) {
+  console.log("blocks to drop is " + totalBlocks);
+
   var blocksToDrop = _Globals.default.game.allBlocks.slice(0, totalBlocks);
 
   blocksToDrop.forEach(function (block) {
@@ -1191,6 +1195,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ReplaceBlocks = function ReplaceBlocks(totalBlocks) {
   var blocksToReplace = _Globals.default.game.droppedBlocks.slice(0, totalBlocks);
 
+  console.log("replacing blocks " + totalBlocks);
   blocksToReplace.forEach(function (block) {
     _Utilities.default.elementLib.classChange(block, "remove", "falling", "clear");
 
@@ -1212,6 +1217,8 @@ exports.default = void 0;
 
 var _Globals = _interopRequireDefault(require("../Globals/Globals"));
 
+var _ReplaceBlocks = _interopRequireDefault(require("../ReplaceBlocks/ReplaceBlocks"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var root = document.documentElement;
@@ -1226,7 +1233,9 @@ var increaseMeter = function increaseMeter() {
 var emptyMeter = function emptyMeter() {
   meterWrap.classList.add("heartBeat");
   meterValue += 10;
-  root.style.setProperty("--meter-fill", "".concat(meterValue, "%"));
+  root.style.setProperty("--meter-fill", "".concat(meterValue, "%")); // Replace blocks after full meter
+
+  (0, _ReplaceBlocks.default)(Math.floor(_Globals.default.game.playerScore / 10));
   setTimeout(function () {
     meterValue = 0;
     root.style.setProperty("--meter-fill", "".concat(meterValue, "%"));
@@ -1238,14 +1247,14 @@ var AwesomeMeter = function AwesomeMeter() {
   if (meterValue < 90) {
     increaseMeter();
   } else {
-    _Globals.default.powerups.decreaseDroppedBlocks++;
+    //Globals.powerups.decreaseDroppedBlocks++;
     emptyMeter();
   }
 };
 
 var _default = AwesomeMeter;
 exports.default = _default;
-},{"../Globals/Globals":"js/Components/Globals/Globals.js"}],"js/Components/Scoring/Scoring.js":[function(require,module,exports) {
+},{"../Globals/Globals":"js/Components/Globals/Globals.js","../ReplaceBlocks/ReplaceBlocks":"js/Components/ReplaceBlocks/ReplaceBlocks.js"}],"js/Components/Scoring/Scoring.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1273,9 +1282,9 @@ var trackSyncStreak = function trackSyncStreak(tile) {
     _Utilities.default.elementLib.classChangeDelay(tile, 250, "lit--blue");
 
     if (_Globals.default.game.playerStreak == _Globals.default.game.syncLength) {
-      _Globals.default.game.playerScore += _Globals.default.game.syncLength * 10;
-      _Globals.default.game.playerStreak = 0;
-      (0, _ReplaceBlocks.default)(_Globals.default.game.syncLength * 10 * 2);
+      _Globals.default.game.playerStreak = 0; // what if when you nail the sync you replace all of the blocks
+
+      (0, _ReplaceBlocks.default)(_Globals.default.game.droppedBlocks.length);
     }
   }
 };
@@ -1288,7 +1297,7 @@ var changeTileBackground = function changeTileBackground(tile) {
 };
 
 var Scoring = function Scoring(tile) {
-  _Utilities.default.elementLib.classCheck(tile, "lit--green") ? (0, _ReplaceBlocks.default)(3) : (0, _ReplaceBlocks.default)(1);
+  (0, _ReplaceBlocks.default)(1);
   _Globals.default.game.playerScore++;
   _Globals.default.dom.domScore.textContent = "Score: ".concat(_Globals.default.game.playerScore);
   _Globals.default.game.syncCount > 0 ? trackSyncStreak(tile) : (0, _AwesomeMeter.default)();
@@ -1342,7 +1351,16 @@ var FlashTile = function FlashTile() {
   } // Determine if current flash is a beat (white flash) or sync (green flash)
 
 
-  beatOrSync() ? _Globals.default.game.flashColor = "lit--white" : _Globals.default.game.flashColor = "lit--green"; // Create tile in the dom and set it to random position with appropriate flashColor assigned
+  if (_Globals.default.game.playerScore >= 50) {
+    if (beatOrSync()) {
+      _Globals.default.game.flashColor = "lit--white";
+    } else {
+      _Globals.default.game.flashColor = "lit--green";
+    }
+  } else {
+    _Globals.default.game.flashColor = "lit--white";
+  } // Create tile in the dom and set it to random position with appropriate flashColor assigned
+
 
   _Utilities.default.elementLib.classChange((0, _SetTile.default)(), "add", _Globals.default.game.flashColor); // Define and set listener for tile
 
@@ -1810,6 +1828,8 @@ _Globals.default.dom.startButton.addEventListener("click", function () {
   this.classList.add("hidden");
   this.textContent = "Start Game"; // on game over this text content is set to play again
 
+  _Globals.default.dom.awesomeMeter.classList.remove("hidden");
+
   _Globals.default.dom.pauseButton.classList.remove("hidden");
 }); // Pause Button Behavior
 
@@ -1853,7 +1873,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51909" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56635" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

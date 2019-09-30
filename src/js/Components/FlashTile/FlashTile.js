@@ -36,9 +36,15 @@ const FlashTile = () => {
   }
 
   // Determine if current flash is a beat (white flash) or sync (green flash)
-  beatOrSync()
-    ? (Globals.game.flashColor = "lit--white")
-    : (Globals.game.flashColor = "lit--green");
+  if (Globals.game.playerScore >= 50) {
+    if (beatOrSync()) {
+      Globals.game.flashColor = "lit--white";
+    } else {
+      Globals.game.flashColor = "lit--green";
+    }
+  } else {
+    Globals.game.flashColor = "lit--white";
+  }
 
   // Create tile in the dom and set it to random position with appropriate flashColor assigned
   util.elementLib.classChange(SetTile(), "add", Globals.game.flashColor);

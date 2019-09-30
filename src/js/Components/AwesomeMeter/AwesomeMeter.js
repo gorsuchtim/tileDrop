@@ -1,6 +1,7 @@
 "use strict";
 
 import Globals from "../Globals/Globals";
+import ReplaceBlocks from "../ReplaceBlocks/ReplaceBlocks";
 
 var root = document.documentElement;
 var meterWrap = document.querySelector(".wrap__awesomemeter");
@@ -19,6 +20,9 @@ const emptyMeter = () => {
   meterValue += 10;
   root.style.setProperty("--meter-fill", `${meterValue}%`);
 
+  // Replace blocks after full meter
+  ReplaceBlocks(Math.floor(Globals.game.playerScore / 10));
+
   setTimeout(() => {
     meterValue = 0;
     root.style.setProperty("--meter-fill", `${meterValue}%`);
@@ -30,7 +34,7 @@ const AwesomeMeter = () => {
   if (meterValue < 90) {
     increaseMeter();
   } else {
-    Globals.powerups.decreaseDroppedBlocks++;
+    //Globals.powerups.decreaseDroppedBlocks++;
     emptyMeter();
   }
 };
