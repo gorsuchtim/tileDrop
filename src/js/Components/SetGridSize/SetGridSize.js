@@ -1,5 +1,5 @@
 const SetGridSize = {
-  gridSize: 10,
+  gridSize: 5,
   init() {
     var root = document.documentElement;
     root.style.setProperty("--grid-size", SetGridSize.gridSize);

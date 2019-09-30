@@ -412,7 +412,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var SetGridSize = {
-  gridSize: 10,
+  gridSize: 5,
   init: function init() {
     var root = document.documentElement;
     root.style.setProperty("--grid-size", SetGridSize.gridSize);
@@ -511,36 +511,13 @@ var BuildGrid = function BuildGrid() {
 
 var _default = BuildGrid;
 exports.default = _default;
-},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../Globals/Globals":"js/Components/Globals/Globals.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../Services/Services":"js/Components/Services/Services.js"}],"js/Components/Powerups/Powerups.js":[function(require,module,exports) {
+},{"../Utilities/Utilities":"js/Components/Utilities/Utilities.js","./CreateBlock":"js/Components/BuildGrid/CreateBlock.js","../Globals/Globals":"js/Components/Globals/Globals.js","../SetGridSize/SetGridSize":"js/Components/SetGridSize/SetGridSize.js","../Countdown/Countdown":"js/Components/Countdown/Countdown.js","../Services/Services":"js/Components/Services/Services.js"}],"js/Components/DropBlocks/DropBlocks.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _Globals = _interopRequireDefault(require("../Globals/Globals"));
-
-var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Powerups = {
-  decreaseDroppedBlocks: function decreaseDroppedBlocks() {
-    console.log("ddb running");
-  }
-};
-var _default = Powerups;
-exports.default = _default;
-},{"../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/DropBlocks/DropBlocks.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Powerups = _interopRequireDefault(require("../Powerups/Powerups"));
 
 var _Globals = _interopRequireDefault(require("../Globals/Globals"));
 
@@ -552,7 +529,7 @@ var defineTotalBlocksToDrop = function defineTotalBlocksToDrop() {
   var blocksToDrop;
 
   if (_Globals.default.game.playerScore >= 20) {
-    blocksToDrop = Math.floor(_Globals.default.game.playerScore / 10) - _Powerups.default.decreaseDroppedBlocks;
+    blocksToDrop = Math.floor(_Globals.default.game.playerScore / 10) - _Globals.default.powerups.decreaseDroppedBlocks;
   } else {
     blocksToDrop = 1;
   }
@@ -574,11 +551,10 @@ var removeBlocks = function removeBlocks(totalBlocks) {
 
 var DropBlocks = function DropBlocks() {
   if (!_Globals.default.game.gameIsPaused) {
-    if (_Globals.default.game.allBlocks.length) {
-      setTimeout(function () {
-        removeBlocks(defineTotalBlocksToDrop());
-        DropBlocks();
-      }, _Globals.default.music.bpm);
+    if (_Globals.default.game.allBlocks.length) {// setTimeout(() => {
+      //   removeBlocks(defineTotalBlocksToDrop());
+      //   DropBlocks();
+      // }, Globals.music.bpm);
     } else {
       setTimeout(function () {
         _Globals.default.game.gameOver = true;
@@ -597,7 +573,7 @@ var DropBlocks = function DropBlocks() {
 
 var _default = DropBlocks;
 exports.default = _default;
-},{"../Powerups/Powerups":"js/Components/Powerups/Powerups.js","../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/utilities/Utilities.js":[function(require,module,exports) {
+},{"../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/utilities/Utilities.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1225,7 +1201,7 @@ var ReplaceBlocks = function ReplaceBlocks(totalBlocks) {
 
 var _default = ReplaceBlocks;
 exports.default = _default;
-},{"../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/UpdateTileBackground/UpdateTileBackground.js":[function(require,module,exports) {
+},{"../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js"}],"js/Components/AwesomeMeter/AwesomeMeter.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1233,14 +1209,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var UpdateTileBackground = function UpdateTileBackground() {
-  // do stuff
-  console.log("utb running");
+var _Globals = _interopRequireDefault(require("../Globals/Globals"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var root = document.documentElement;
+var meterValue = parseInt(getComputedStyle(root).getPropertyValue("--meter-fill"));
+
+var animateMeter = function animateMeter() {
+  meterValue += 10;
+  root.style.setProperty("--meter-fill", "".concat(meterValue, "%"));
 };
 
-var _default = UpdateTileBackground;
+var AwesomeMeter = function AwesomeMeter() {
+  if (meterValue < 90) {
+    animateMeter();
+  }
+};
+
+var _default = AwesomeMeter;
 exports.default = _default;
-},{}],"js/Components/Scoring/Scoring.js":[function(require,module,exports) {
+},{"../Globals/Globals":"js/Components/Globals/Globals.js"}],"js/Components/Scoring/Scoring.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1254,21 +1243,10 @@ var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
 
 var _ReplaceBlocks = _interopRequireDefault(require("../ReplaceBlocks/ReplaceBlocks"));
 
-var _Powerups = _interopRequireDefault(require("../Powerups/Powerups"));
-
-var _UpdateTileBackground = _interopRequireDefault(require("../UpdateTileBackground/UpdateTileBackground"));
+var _AwesomeMeter = _interopRequireDefault(require("../AwesomeMeter/AwesomeMeter"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/*
-Fill the background color of the tile when you tap it by x% each tap
-when the background tile is filled THEN mupschroops is activated.  
-once you fill mupschroops background color then you get the bonus
-
-don't track totaltaps or totalflashes - just fill the tile by x% per tap and send out mupshroops
-when you fill mupshroops THEN you decrease droppedblocks rate by x%
-
-*/
 var trackSyncStreak = function trackSyncStreak(tile) {
   // Increase syncStreak count with each tap
   _Globals.default.game.playerStreak++; // Update streak in DOM
@@ -1297,13 +1275,13 @@ var Scoring = function Scoring(tile) {
   _Utilities.default.elementLib.classCheck(tile, "lit--green") ? (0, _ReplaceBlocks.default)(3) : (0, _ReplaceBlocks.default)(1);
   _Globals.default.game.playerScore++;
   _Globals.default.dom.domScore.textContent = "Score: ".concat(_Globals.default.game.playerScore);
-  _Globals.default.game.syncCount > 0 ? trackSyncStreak(tile) : (0, _UpdateTileBackground.default)();
+  _Globals.default.game.syncCount > 0 ? trackSyncStreak(tile) : (0, _AwesomeMeter.default)();
   changeTileBackground(tile);
 };
 
 var _default = Scoring;
 exports.default = _default;
-},{"../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../ReplaceBlocks/ReplaceBlocks":"js/Components/ReplaceBlocks/ReplaceBlocks.js","../Powerups/Powerups":"js/Components/Powerups/Powerups.js","../UpdateTileBackground/UpdateTileBackground":"js/Components/UpdateTileBackground/UpdateTileBackground.js"}],"js/Components/FlashTile/FlashTile.js":[function(require,module,exports) {
+},{"../Globals/Globals":"js/Components/Globals/Globals.js","../Utilities/Utilities":"js/Components/Utilities/Utilities.js","../ReplaceBlocks/ReplaceBlocks":"js/Components/ReplaceBlocks/ReplaceBlocks.js","../AwesomeMeter/AwesomeMeter":"js/Components/AwesomeMeter/AwesomeMeter.js"}],"js/Components/FlashTile/FlashTile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1360,12 +1338,10 @@ var FlashTile = function FlashTile() {
   increaseFlashCount();
 
   if (!_Globals.default.game.game_over && !_Globals.default.game.paused) {
-    setTimeout(function () {
-      tile.parentNode.removeChild(tile);
-    }, _Globals.default.music.bpm);
-    setTimeout(function () {
-      FlashTile();
-    }, _Globals.default.music.bpm);
+    setTimeout(function () {//  tile.parentNode.removeChild(tile);
+    }, _Globals.default.music.bpm); // setTimeout(() => {
+    //   FlashTile();
+    // }, Globals.music.bpm);
   } else {
     tile.parentNode.removeChild(tile);
   }
@@ -1859,7 +1835,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51087" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51909" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
