@@ -1214,16 +1214,31 @@ var _Globals = _interopRequireDefault(require("../Globals/Globals"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var root = document.documentElement;
+var meterWrap = document.querySelector(".wrap__awesomemeter");
 var meterValue = parseInt(getComputedStyle(root).getPropertyValue("--meter-fill"));
 
-var animateMeter = function animateMeter() {
+var increaseMeter = function increaseMeter() {
   meterValue += 10;
   root.style.setProperty("--meter-fill", "".concat(meterValue, "%"));
 };
 
+var emptyMeter = function emptyMeter() {
+  meterWrap.classList.add("heartBeat");
+  meterValue += 10;
+  root.style.setProperty("--meter-fill", "".concat(meterValue, "%"));
+  setTimeout(function () {
+    meterValue = 0;
+    root.style.setProperty("--meter-fill", "".concat(meterValue, "%"));
+    meterWrap.classList.remove("heartBeat");
+  }, 200);
+};
+
 var AwesomeMeter = function AwesomeMeter() {
   if (meterValue < 90) {
-    animateMeter();
+    increaseMeter();
+  } else {
+    _Globals.default.powerups.decreaseDroppedBlocks++;
+    emptyMeter();
   }
 };
 
