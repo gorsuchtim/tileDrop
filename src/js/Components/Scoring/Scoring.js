@@ -3,18 +3,7 @@
 import Globals from "../Globals/Globals";
 import util from "../Utilities/Utilities";
 import ReplaceBlocks from "../ReplaceBlocks/ReplaceBlocks";
-import Powerups from "../Powerups/Powerups";
-import UpdateTileBackground from "../UpdateTileBackground/UpdateTileBackground";
-
-/*
-Fill the background color of the tile when you tap it by x% each tap
-when the background tile is filled THEN mupschroops is activated.  
-once you fill mupschroops background color then you get the bonus
-
-don't track totaltaps or totalflashes - just fill the tile by x% per tap and send out mupshroops
-when you fill mupshroops THEN you decrease droppedblocks rate by x%
-
-*/
+import AwesomeMeter from "../AwesomeMeter/AwesomeMeter";
 
 const trackSyncStreak = tile => {
   // Increase syncStreak count with each tap
@@ -49,7 +38,7 @@ const Scoring = tile => {
   Globals.game.playerScore++;
   Globals.dom.domScore.textContent = `Score: ${Globals.game.playerScore}`;
 
-  Globals.game.syncCount > 0 ? trackSyncStreak(tile) : UpdateTileBackground();
+  Globals.game.syncCount > 0 ? trackSyncStreak(tile) : AwesomeMeter();
 
   changeTileBackground(tile);
 };
