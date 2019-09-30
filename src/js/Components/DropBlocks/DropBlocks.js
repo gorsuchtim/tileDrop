@@ -27,10 +27,10 @@ const removeBlocks = totalBlocks => {
 const DropBlocks = () => {
   if (!Globals.game.gameIsPaused) {
     if (Globals.game.allBlocks.length) {
-      // setTimeout(() => {
-      //   removeBlocks(defineTotalBlocksToDrop());
-      //   DropBlocks();
-      // }, Globals.music.bpm);
+      setTimeout(() => {
+        removeBlocks(defineTotalBlocksToDrop());
+        DropBlocks();
+      }, Globals.music.bpm);
     } else {
       setTimeout(() => {
         Globals.game.gameOver = true;

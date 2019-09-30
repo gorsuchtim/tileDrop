@@ -551,10 +551,11 @@ var removeBlocks = function removeBlocks(totalBlocks) {
 
 var DropBlocks = function DropBlocks() {
   if (!_Globals.default.game.gameIsPaused) {
-    if (_Globals.default.game.allBlocks.length) {// setTimeout(() => {
-      //   removeBlocks(defineTotalBlocksToDrop());
-      //   DropBlocks();
-      // }, Globals.music.bpm);
+    if (_Globals.default.game.allBlocks.length) {
+      setTimeout(function () {
+        removeBlocks(defineTotalBlocksToDrop());
+        DropBlocks();
+      }, _Globals.default.music.bpm);
     } else {
       setTimeout(function () {
         _Globals.default.game.gameOver = true;
@@ -1353,10 +1354,12 @@ var FlashTile = function FlashTile() {
   increaseFlashCount();
 
   if (!_Globals.default.game.game_over && !_Globals.default.game.paused) {
-    setTimeout(function () {//  tile.parentNode.removeChild(tile);
-    }, _Globals.default.music.bpm); // setTimeout(() => {
-    //   FlashTile();
-    // }, Globals.music.bpm);
+    setTimeout(function () {
+      tile.parentNode.removeChild(tile);
+    }, _Globals.default.music.bpm);
+    setTimeout(function () {
+      FlashTile();
+    }, _Globals.default.music.bpm);
   } else {
     tile.parentNode.removeChild(tile);
   }
