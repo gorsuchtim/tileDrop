@@ -7,6 +7,10 @@
   align-items: center;
   justify-content: center;
 
+  .intro__title {
+    text-shadow: $lit--blue;
+  }
+
   .wrap--buttons {
     margin-top: 1em;
   }
