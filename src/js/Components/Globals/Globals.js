@@ -2,13 +2,16 @@
 
 const Globals = {
   dom: {
+    rulesWrap: document.querySelector(".wrap--rules"),
+    gameBoardWrap: document.querySelector(".wrap--gameBoard"),
     blocksWrap: document.querySelector(".wrap--blocks"),
     startButton: document.querySelector(".start"),
     pauseButton: document.querySelector(".pause"),
     domStreak: document.querySelector(".dom__streak"),
     domScore: document.querySelector(".dom__score"),
     timerElement: document.querySelector(".dom__timer"),
-    timerWrap: document.querySelector(".wrap--timer")
+    timerWrap: document.querySelector(".wrap--timer"),
+    awesomeMeter: document.querySelector(".wrap__awesomemeter")
   },
   game: {
     allBlocks: [],
@@ -24,9 +27,6 @@ const Globals = {
     syncLength: 0,
     gameIsPaused: false,
     gameOver: false
-  },
-  powerups: {
-    decreaseDroppedBlocks: 0
   },
   music: {
     bpm: 1500,

@@ -31,14 +31,20 @@ const FlashTile = () => {
 
   // Randomly set how many beats pass before sync starts AND randomly set how many beats the sync will last
   if (Globals.game.beatCount == 0) {
-    Globals.game.startSync = util.math.createRandomNumber(15, 5); // the sync flashing will start at anywhere between 5 and 15 beat flashes
-    Globals.game.syncLength = util.math.createRandomNumber(12, 3); // the length of the sync flashing will be between 3 and 12 beats
+    Globals.game.startSync = util.math.createRandomNumber(15, 7); // the sync flashing will start at anywhere between 5 and 15 beat flashes
+    Globals.game.syncLength = util.math.createRandomNumber(10, 5); // the length of the sync flashing will be between 3 and 12 beats
   }
 
   // Determine if current flash is a beat (white flash) or sync (green flash)
-  beatOrSync()
-    ? (Globals.game.flashColor = "lit--white")
-    : (Globals.game.flashColor = "lit--green");
+  if (Globals.game.playerScore >= 1000) {
+    if (beatOrSync()) {
+      Globals.game.flashColor = "lit--white";
+    } else {
+      Globals.game.flashColor = "lit--green";
+    }
+  } else {
+    Globals.game.flashColor = "lit--white";
+  }
 
   // Create tile in the dom and set it to random position with appropriate flashColor assigned
   util.elementLib.classChange(SetTile(), "add", Globals.game.flashColor);

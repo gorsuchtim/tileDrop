@@ -5,16 +5,15 @@ import util from "../Utilities/Utilities";
 
 const defineTotalBlocksToDrop = () => {
   var blocksToDrop;
-  if (Globals.game.playerScore >= 20) {
-    blocksToDrop =
-      Math.floor(Globals.game.playerScore / 10) -
-      Globals.powerups.decreaseDroppedBlocks;
+  if (Globals.game.playerScore >= 1000) {
+    blocksToDrop = Math.floor(Globals.game.playerScore / 100);
   } else {
     blocksToDrop = 1;
   }
   return blocksToDrop;
 };
 const removeBlocks = totalBlocks => {
+  console.log("blocks to drop is " + totalBlocks);
   var blocksToDrop = Globals.game.allBlocks.slice(0, totalBlocks);
 
   blocksToDrop.forEach(block => {

@@ -17,9 +17,9 @@ const trackSyncStreak = tile => {
     util.elementLib.classChangeDelay(tile, 250, "lit--blue");
 
     if (Globals.game.playerStreak == Globals.game.syncLength) {
-      Globals.game.playerScore += Globals.game.syncLength * 10;
       Globals.game.playerStreak = 0;
-      ReplaceBlocks(Globals.game.syncLength * 10 * 2);
+      // what if when you nail the sync you replace all of the blocks
+      ReplaceBlocks(Globals.game.droppedBlocks.length);
     }
   }
 };
@@ -31,11 +31,12 @@ const changeTileBackground = tile => {
 };
 
 const Scoring = tile => {
-  util.elementLib.classCheck(tile, "lit--green")
-    ? ReplaceBlocks(3)
-    : ReplaceBlocks(1);
+  ReplaceBlocks(1);
 
-  Globals.game.playerScore++;
+  util.elementLib.classCheck(tile, "lit--green")
+    ? (Globals.game.playerScore += 200)
+    : (Globals.game.playerScore += 100);
+
   Globals.dom.domScore.textContent = `Score: ${Globals.game.playerScore}`;
 
   Globals.game.syncCount > 0 ? trackSyncStreak(tile) : AwesomeMeter();

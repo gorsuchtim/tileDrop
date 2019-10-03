@@ -10,21 +10,111 @@
   <body>
     <canvas id="cv"></canvas>
 
+    <!-- Intro Screen -->
+    <div class="wrap--intro">
+      <h1>TileDrop 2.0</h1>
+      <div class="wrap--buttons">
+        <button class="button">Rules</button>
+        <button class="button">Play</button>
+      </div>
+    </div>
+
+    <!-- Game board and Timer -->
     <div class="wrap--timer hidden">
       <h1 class="dom__timer lit--blue"></h1>
     </div>
 
-    <div class="wrap--gameBoard">
+    <div class="wrap--gameBoard hidden">
       <div class="wrap--buttons">
-        <button class="button start">Start Game</button>
+        <!--<button class="button start">Start Game</button>-->
         <button class="button pause hidden">Pause</button>
         <h4 class="dom__score">Score: 0</h4>
         <h4 class="dom__streak hidden">Streak: 0</h4>
       </div>
-      <div class="wrap__awesomemeter">
+      <div class="wrap__awesomemeter hidden">
         <div class="meter"></div>
       </div>
       <div class="wrap--blocks"></div>
+    </div>
+
+    <!-- Rules -->
+    <div class="wrap--rules hidden">
+      <h2>Object of the Game</h2>
+      <ul>
+        <li>
+          Score as many points as possible before all of the blocks disappear
+          from the gameboard
+        </li>
+      </ul>
+
+      <div class="hidden">
+        <h2>Dropping Blocks</h2>
+        <ul>
+          <li>
+            When the game begins blocks will start being removed from the
+            gameboard
+          </li>
+          <li>
+            At the start of the game only 1 block is removed with each beat
+          </li>
+          <li>
+            When the players score reaches 1000, an additional block will be
+            dropped
+          </li>
+          <li>
+            The number of blocks being dropped increments with the players score
+            and is increased every 1000 points
+          </li>
+        </ul>
+      </div>
+      <div class="hidden">
+        <h2>Scoring points and replacing blocks</h2>
+        <ul>
+          <li>A white flash appears with each beat of the music</li>
+          <li>
+            If the player taps the flash before it disappears, 1 block is
+            replaced on the game board
+          </li>
+          <li>
+            There is no consequence for failing to tap a block, except that
+            another block has fallen without being replaced
+          </li>
+          <li>With each tap the player scores 100 points</li>
+        </ul>
+      </div>
+
+      <div class="hidden">
+        <h2>Powerups</h2>
+        <p>Awesomemeter!</p>
+        <ul>
+          <li>
+            With each white flash (not SyncFlash) tap, the Awesomemeter at the
+            top of the screen will fill by 1/10th (10%)
+          </li>
+          <li>
+            When the Awesomemeter is filled, blocks are replaced. The number of
+            blocks replaced is equal to 1/10th (10%) of the player's score
+          </li>
+        </ul>
+        <p>SyncFlash!</p>
+        <ul>
+          <li>
+            At random intervals, between 7 and 15 white flashes, the flash will
+            turn green
+          </li>
+          <li>
+            Tapping a SyncFlash flash will score the player 200 points per tap
+          </li>
+          <li>
+            The green SyncFlashes last between a randomly selected interval of 5
+            and 10 flashes
+          </li>
+          <li>
+            If the player successfully taps all green flashes (not missing any)
+            then all of the blocks re-appear on the game board
+          </li>
+        </ul>
+      </div>
     </div>
 
     <audio class="audio__player" src="audio/synth1_209.mp3"></audio>
