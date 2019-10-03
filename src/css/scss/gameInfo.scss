@@ -9,6 +9,50 @@
 
   li {
     list-style: none;
-    margin: 1em;
+    margin: 1em 0;
   }
+}
+
+.info__slide {
+  width: 80%;
+  margin: 1em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.info__title {
+  text-align: center;
+  font-size: 1.5em;
+  text-shadow: $lit--green;
+  margin: 1em 0;
+}
+
+.info__text {
+  text-shadow: $lit--green;
+  li {
+    font-size: 1.25em;
+  }
+}
+.wrap--navButtons {
+  display: flex;
+  width: 25%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.button__nav {
+  cursor: pointer;
+  height: 1.25em;
+  width: 1.25em;
+  background-color: darkgray;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.button__nav--active {
+  border-color: white;
+  background-color: white;
+  box-shadow: $lit--green;
 }

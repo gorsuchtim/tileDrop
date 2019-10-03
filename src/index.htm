@@ -39,15 +39,17 @@
 
     <!-- Rules -->
     <div class="wrap--gameInfo hidden">
-      <h2>Object of the Game</h2>
-      <ul>
-        <li>
-          Score as many points as possible before all of the blocks disappear
-          from the gameboard
-        </li>
-      </ul>
+      <div class="info__slide" showSlide="one">
+        <h2 class="info__title">Object of the Game</h2>
+        <ul class="info__text">
+          <li>
+            Score as many points as possible before all of the blocks disappear
+            from the gameboard
+          </li>
+        </ul>
+      </div>
 
-      <div class="hidden">
+      <div class="info__slide hidden" showSlide="two">
         <h2>Dropping Blocks</h2>
         <ul>
           <li>
@@ -67,7 +69,8 @@
           </li>
         </ul>
       </div>
-      <div class="hidden">
+
+      <div class="info__slide hidden" showSlide="three">
         <h2>Scoring points and replacing blocks</h2>
         <ul>
           <li>A white flash appears with each beat of the music</li>
@@ -83,7 +86,7 @@
         </ul>
       </div>
 
-      <div class="hidden">
+      <div class="info__slide hidden" showSlide="four">
         <h2>Powerups</h2>
         <p>Awesomemeter!</p>
         <ul>
@@ -114,6 +117,16 @@
             then all of the blocks re-appear on the game board
           </li>
         </ul>
+      </div>
+
+      <div class="wrap--navButtons">
+        <button
+          class="button__nav button__nav--active"
+          showSlide="one"
+        ></button>
+        <button class="button__nav" showSlide="two"></button>
+        <button class="button__nav" showSlide="three"></button>
+        <button class="button__nav" showSlide="four"></button>
       </div>
     </div>
 

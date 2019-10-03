@@ -3,17 +3,17 @@
 import Globals from "../Globals/Globals";
 import Services from "../Services/Services";
 
-const PauseGame = () => {
+function PauseGame() {
   Globals.game.gameIsPaused = !Globals.game.gameIsPaused;
 
   if (Globals.game.gameIsPaused) {
-    Globals.dom.pauseButton.textContent = "Resume";
+    this.textContent = "Resume";
     // Globals.music.audio.pause();
   } else {
-    Globals.dom.pauseButton.textContent = "Pause";
+    this.textContent = "Pause";
     //  Globals.music.audio.play();
     Services.runGame();
   }
-};
+}
 
 export default PauseGame;

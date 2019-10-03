@@ -2,6 +2,8 @@
 
 const Globals = {
   dom: {
+    infoButtonNavs: document.querySelectorAll(".button__nav"),
+    infoSlides: document.querySelectorAll(".info__slide"),
     gameInfoWrap: document.querySelector(".wrap--gameInfo"),
     introWrap: document.querySelector(".wrap--intro"),
     gameBoardWrap: document.querySelector(".wrap--gameBoard"),
