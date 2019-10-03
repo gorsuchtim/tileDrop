@@ -1,8 +1,8 @@
 "use strict";
 
-import Globals from "./Globals/Globals";
-import ResetGame from "./ResetGame/ResetGame";
-import Services from "./Services/Services";
+import Globals from "../Globals/Globals";
+import ResetGame from "../ResetGame/ResetGame";
+import Services from "../Services/Services";
 
 const StartGame = () => {
   if (Globals.game.gameOver == true) {
