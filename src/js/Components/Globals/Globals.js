@@ -2,6 +2,7 @@
 
 const Globals = {
   dom: {
+    rulesWrap: document.querySelector(".wrap--rules"),
     gameBoardWrap: document.querySelector(".wrap--gameBoard"),
     blocksWrap: document.querySelector(".wrap--blocks"),
     startButton: document.querySelector(".start"),
