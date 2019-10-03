@@ -3,6 +3,9 @@
 import Globals from "../Globals/Globals";
 import ReplaceBlocks from "../ReplaceBlocks/ReplaceBlocks";
 
+// WHAT IF WE INCREASE PLAYER SCORE BY 100, THEN 110, THEN 120 ETC - INCREMENTALLY INCREASING THE SCORE
+// BASED ON THE VALUE OF THE AWESOME METER AS AN INCENTIVE TO FILL THE METER
+
 var root = document.documentElement;
 var meterWrap = document.querySelector(".wrap__awesomemeter");
 
