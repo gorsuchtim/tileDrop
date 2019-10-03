@@ -3,18 +3,22 @@
 import Utilities from "../Utilities/Utilities";
 import Globals from "../Globals/Globals";
 
-const setActiveButton = clickedButton => {
-  Utilities.elementLib
-    .toArray(Globals.dom.infoButtonNavs)
-    .forEach(infoButtonNav => {
-      infoButtonNav.classList.remove("button__nav--active");
-    });
-  clickedButton.classList.add("button__nav--active");
+var infoButtonNavs = Utilities.elementLib.toArray(Globals.dom.infoButtonNavs);
+var slides = Utilities.elementLib.toArray(Globals.dom.infoSlides);
+
+const removeButtonActiveState = () => {
+  infoButtonNavs.forEach(infoButtonNav => {
+    infoButtonNav.classList.remove("button__nav--active");
+  });
+  return true;
 };
 
-const showActiveSlide = buttonShowSlide => {
-  var slides = Utilities.elementLib.toArray(Globals.dom.infoSlides);
+const setActiveButton = clickedButton =>
+  removeButtonActiveState()
+    ? clickedButton.classList.add("button__nav--active")
+    : false;
 
+const showActiveSlide = buttonShowSlide => {
   slides.forEach(slide => {
     slide.getAttribute("showSlide") != buttonShowSlide
       ? slide.classList.add("hidden")
@@ -22,9 +26,20 @@ const showActiveSlide = buttonShowSlide => {
   });
 };
 
+const resetInfoScreen = () => {
+  if (removeButtonActiveState()) {
+    infoButtonNavs[1].classList.add("button__nav--active");
+    slides.forEach(slide => {
+      slide.classList.add("hidden");
+    });
+    document.querySelector(".info__slide").classList.remove("hidden");
+  }
+};
+
 const closeInfo = () => {
   Globals.dom.gameInfoWrap.classList.add("hidden");
   Globals.dom.introWrap.classList.remove("hidden");
+  resetInfoScreen();
 };
 
 function InfoButtonNav() {
