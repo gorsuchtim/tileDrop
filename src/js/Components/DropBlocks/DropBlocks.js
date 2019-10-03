@@ -5,7 +5,7 @@ import util from "../Utilities/Utilities";
 
 const defineTotalBlocksToDrop = () => {
   var blocksToDrop;
-  if (Globals.game.playerScore >= 5000) {
+  if (Globals.game.playerScore >= 1000) {
     blocksToDrop = Math.floor(Globals.game.playerScore / 100);
   } else {
     blocksToDrop = 1;
