@@ -2,40 +2,41 @@
 
 const Globals = {
   dom: {
+    awesomeMeter: document.querySelector(".wrap__awesomemeter"),
+    blocksWrap: document.querySelector(".wrap--blocks"),
+    closeButton: document.querySelector(".button--close"),
+    domScore: document.querySelector(".dom__score"),
+    domStreak: document.querySelector(".dom__streak"),
+    gameBoardWrap: document.querySelector(".wrap--gameBoard"),
+    gameInfoButton: document.querySelector(".button__intro--gameInfo"),
+    gameInfoWrap: document.querySelector(".wrap--gameInfo"),
     infoButtonNavs: document.querySelectorAll(".button__nav"),
     infoSlides: document.querySelectorAll(".info__slide"),
-    gameInfoWrap: document.querySelector(".wrap--gameInfo"),
     introWrap: document.querySelector(".wrap--intro"),
-    gameBoardWrap: document.querySelector(".wrap--gameBoard"),
-    blocksWrap: document.querySelector(".wrap--blocks"),
-    startButton: document.querySelector(".button--start"),
     pauseButton: document.querySelector(".button--pause"),
-    gameInfoButton: document.querySelector(".button--gameInfo"),
-    playGameButton: document.querySelector(".button--playGame"),
-    domStreak: document.querySelector(".dom__streak"),
-    domScore: document.querySelector(".dom__score"),
+    playGameButton: document.querySelector(".button__intro--playGame"),
+    startButton: document.querySelector(".button--start"),
     timerElement: document.querySelector(".dom__timer"),
-    timerWrap: document.querySelector(".wrap--timer"),
-    awesomeMeter: document.querySelector(".wrap__awesomemeter")
+    timerWrap: document.querySelector(".wrap--timer")
   },
   game: {
     allBlocks: [],
-    droppedBlocks: [],
     beatCount: 0,
-    syncCount: 0,
     flashColor: undefined,
-    tile_y: undefined,
-    tile_x: undefined,
+    droppedBlocks: [],
+    gameIsPaused: false,
+    gameOver: false,
     playerScore: 0,
     playerStreak: 0,
     startSync: 0,
+    syncCount: 0,
     syncLength: 0,
-    gameIsPaused: false,
-    gameOver: false
+    tile_y: undefined,
+    tile_x: undefined
   },
   music: {
-    bpm: 1500,
-    audio: document.querySelector(".audio__player")
+    audio: document.querySelector(".audio__player"),
+    bpm: 1500
   }
 };
 

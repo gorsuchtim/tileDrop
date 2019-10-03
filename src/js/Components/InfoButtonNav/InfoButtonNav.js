@@ -3,9 +3,14 @@
 import Utilities from "../Utilities/Utilities";
 import Globals from "../Globals/Globals";
 
-var infoButtonNavsArray = Utilities.elementLib.toArray(
-  Globals.dom.infoButtonNavs
-);
+const setActiveButton = clickedButton => {
+  Utilities.elementLib
+    .toArray(Globals.dom.infoButtonNavs)
+    .forEach(infoButtonNav => {
+      infoButtonNav.classList.remove("button__nav--active");
+    });
+  clickedButton.classList.add("button__nav--active");
+};
 
 const showActiveSlide = buttonShowSlide => {
   var slides = Utilities.elementLib.toArray(Globals.dom.infoSlides);
@@ -17,13 +22,18 @@ const showActiveSlide = buttonShowSlide => {
   });
 };
 
-function InfoButtonNav() {
-  infoButtonNavsArray.forEach(infoButtonNav => {
-    infoButtonNav.classList.remove("button__nav--active");
-  });
-  this.classList.add("button__nav--active");
+const closeInfo = () => {
+  Globals.dom.gameInfoWrap.classList.add("hidden");
+  Globals.dom.introWrap.classList.remove("hidden");
+};
 
-  showActiveSlide(this.getAttribute("showSlide"));
+function InfoButtonNav() {
+  if (this.classList.contains("button--close")) {
+    closeInfo();
+  } else {
+    setActiveButton(this);
+    showActiveSlide(this.getAttribute("showSlide"));
+  }
 }
 
 export default InfoButtonNav;

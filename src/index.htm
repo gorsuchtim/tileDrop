@@ -12,10 +12,14 @@
 
     <!-- Intro Screen -->
     <div class="wrap--intro">
-      <h1>TileDrop 2.0</h1>
+      <h1 class="intro__title">TileDrop 2.0</h1>
       <div class="wrap--buttons">
-        <button class="button button--gameInfo">Game Info</button>
-        <button class="button button--playGame">Play Game</button>
+        <button class="button button__intro button__intro--gameInfo">
+          Game Info
+        </button>
+        <button class="button button__intro button__intro--playGame">
+          Play Game
+        </button>
       </div>
     </div>
 
@@ -39,9 +43,10 @@
 
     <!-- Rules -->
     <div class="wrap--gameInfo hidden">
+      <button class="button__nav button--close">Close</button>
       <div class="info__slide" showSlide="one">
         <h2 class="info__title">Object of the Game</h2>
-        <ul class="info__text">
+        <ul class="info__text info__text--green">
           <li>
             Score as many points as possible before all of the blocks disappear
             from the gameboard
@@ -50,71 +55,50 @@
       </div>
 
       <div class="info__slide hidden" showSlide="two">
-        <h2>Dropping Blocks</h2>
-        <ul>
+        <h2 class="info__title">Dropping Blocks</h2>
+        <ul class="info__text info__text--green">
           <li>
-            When the game begins blocks will start being removed from the
-            gameboard
+            At the start of the game 1 block disappears with each beat
           </li>
           <li>
-            At the start of the game only 1 block is removed with each beat
-          </li>
-          <li>
-            When the players score reaches 1000, an additional block will be
-            dropped
-          </li>
-          <li>
-            The number of blocks being dropped increments with the players score
-            and is increased every 1000 points
+            At a score of >= 1000 and every 100pts additional blocks drop per
+            beat
           </li>
         </ul>
       </div>
 
       <div class="info__slide hidden" showSlide="three">
-        <h2>Scoring points and replacing blocks</h2>
-        <ul>
-          <li>A white flash appears with each beat of the music</li>
+        <h2 class="info__title">Scoring points and replacing blocks</h2>
+        <ul class="info__text info__text--green">
           <li>
-            If the player taps the flash before it disappears, 1 block is
-            replaced on the game board
+            Tapping a white flash scores 100 points and replaces 1 block to the
+            board
           </li>
-          <li>
-            There is no consequence for failing to tap a block, except that
-            another block has fallen without being replaced
-          </li>
-          <li>With each tap the player scores 100 points</li>
         </ul>
       </div>
 
       <div class="info__slide hidden" showSlide="four">
-        <h2>Powerups</h2>
-        <p>Awesomemeter!</p>
-        <ul>
+        <h2 class="info__text info__text--green">Awesomemeter!</h2>
+        <ul class="info__text info__text--green">
           <li>
-            With each white flash (not SyncFlash) tap, the Awesomemeter at the
-            top of the screen will fill by 1/10th (10%)
+            The Awesomemeter fills by 1/10th for each white flash tap scored
           </li>
           <li>
-            When the Awesomemeter is filled, blocks are replaced. The number of
-            blocks replaced is equal to 1/10th (10%) of the player's score
+            When the Awesomemeter is filled multiple blocks are replaced
           </li>
         </ul>
-        <p>SyncFlash!</p>
-        <ul>
+      </div>
+
+      <div class="info__slide hidden" showSlide="five">
+        <h2 class="info__text info__text--green">SyncFlash!</h2>
+        <ul class="info__text info__text--green">
           <li>
-            At random intervals, between 7 and 15 white flashes, the flash will
-            turn green
+            At random intervals the flash will be green. A green SyncFlash
+            scores 200pts
           </li>
           <li>
-            Tapping a SyncFlash flash will score the player 200 points per tap
-          </li>
-          <li>
-            The green SyncFlashes last between a randomly selected interval of 5
-            and 10 flashes
-          </li>
-          <li>
-            If the player successfully taps all green flashes (not missing any)
-            then all of the blocks re-appear on the game board
+            The SyncFlash sequence lasts a randomly selected number of flashes.
+            Tapping all SyncFlashes brings all blocks back to the game board
           </li>
         </ul>
       </div>
@@ -127,6 +111,7 @@
         <button class="button__nav" showSlide="two"></button>
         <button class="button__nav" showSlide="three"></button>
         <button class="button__nav" showSlide="four"></button>
+        <button class="button__nav" showSlide="five"></button>
       </div>
     </div>
 

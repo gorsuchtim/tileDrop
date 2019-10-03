@@ -10,19 +10,19 @@ import InfoButtonNav from "./Components/InfoButtonNav/InfoButtonNav";
 import StartGame from "./Components/StartGame/StartGame";
 import PauseGame from "./Components/PauseGame/PauseGame";
 
-// Game Info Button Behavior
+// Game Info Button Event
 Globals.dom.gameInfoButton.addEventListener("click", ShowGameInfo);
 
-// Button Nav (Game Info) Behavior
+// Button Nav (Game Info) Event
 Utilities.elementLib.toArray(Globals.dom.infoButtonNavs).forEach(infoButton => {
   infoButton.addEventListener("click", InfoButtonNav);
 });
 
-// Play Game Button Behavior
+// Play Game Button Event
 Globals.dom.playGameButton.addEventListener("click", ShowGameBoard);
 
-// Start Button Behavior
+// Start Button Event
 Globals.dom.startButton.addEventListener("click", StartGame);
 
-// Pause Button Behavior
+// Pause Button Event
 Globals.dom.pauseButton.addEventListener("click", PauseGame);
