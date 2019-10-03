@@ -5,6 +5,7 @@ import ResetGame from "../ResetGame/ResetGame";
 import Services from "../Services/Services";
 
 const StartGame = () => {
+  /*
   if (Globals.game.gameOver == true) {
     ResetGame();
   }
@@ -20,6 +21,7 @@ const StartGame = () => {
   setTimeout(() => {
     Services.init();
   }, 1000);
+  */
 };
 
 export default StartGame;

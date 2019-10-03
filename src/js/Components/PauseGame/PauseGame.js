@@ -4,6 +4,7 @@ import Globals from "../Globals/Globals";
 import Services from "../Services/Services";
 
 const PauseGame = () => {
+  /*
   Globals.game.gameIsPaused = !Globals.game.gameIsPaused;
 
   if (Globals.game.gameIsPaused) {
@@ -14,6 +15,7 @@ const PauseGame = () => {
     //  Globals.music.audio.play();
     Services.runGame();
   }
+  */
 };
 
 export default PauseGame;
