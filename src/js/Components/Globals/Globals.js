@@ -2,11 +2,14 @@
 
 const Globals = {
   dom: {
-    rulesWrap: document.querySelector(".wrap--rules"),
+    gameInfoWrap: document.querySelector(".wrap--gameInfo"),
+    introWrap: document.querySelector(".wrap--intro"),
     gameBoardWrap: document.querySelector(".wrap--gameBoard"),
     blocksWrap: document.querySelector(".wrap--blocks"),
-    startButton: document.querySelector(".start"),
-    pauseButton: document.querySelector(".pause"),
+    startButton: document.querySelector(".button--start"),
+    pauseButton: document.querySelector(".button--pause"),
+    gameInfoButton: document.querySelector(".button--gameInfo"),
+    playGameButton: document.querySelector(".button--playGame"),
     domStreak: document.querySelector(".dom__streak"),
     domScore: document.querySelector(".dom__score"),
     timerElement: document.querySelector(".dom__timer"),
