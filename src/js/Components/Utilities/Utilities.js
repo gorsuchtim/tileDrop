@@ -147,6 +147,20 @@ const util = {
         }
       }
     },
+    buildElement(obj) {
+      var element = document.createElement(obj.type);
+      obj.attrs != "" ? util.setAttributes(element, obj.attrs) : false;
+      obj.content != "" ? (element.textContent = obj.content) : false;
+      obj.appendTo != "" ? obj.appendTo.appendChild(element) : false;
+      obj.setEvent != "" ? setEvent(element, obj.setEvent) : false;
+
+      // ******* Scoped Function(s) -> {buildElement}
+      function setEvent(element, functionInfo) {
+        element.addEventListener(functionInfo.functionType, function() {
+          functionInfo.functionName(functionInfo.argument);
+        });
+      }
+    },
     classChange(element, directive, ...className) {
       directive === "add"
         ? element.classList.add(...className)

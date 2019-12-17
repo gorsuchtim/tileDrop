@@ -1,7 +1,8 @@
 "use strict";
-import elementFactory from "../Utilities/BuildElement";
+
+import util from "../Utilities/Utilities";
 import GenericBlock from "./GenericBlock";
 
-const CreateBlock = () => elementFactory.init(GenericBlock);
+const CreateBlock = () => util.buildElement(GenericBlock);
 
 export default CreateBlock;
