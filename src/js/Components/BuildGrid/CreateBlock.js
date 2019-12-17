@@ -1,9 +1,10 @@
 "use strict";
 
 import util from "../Utilities/Utilities";
-import GenericBlock from "./GenericBlock";
-import Globals from "../Globals/Globals";
+import Three from "../ThreeJS/Three";
 
+const CreateBlock = () => Three();
+/*
 const CreateBlock = () =>
   setRandomColor(util.elementLib.buildElement(GenericBlock));
 
@@ -22,5 +23,6 @@ const setRandomColor = block => {
 
   return block;
 };
+*/
 
 export default CreateBlock;

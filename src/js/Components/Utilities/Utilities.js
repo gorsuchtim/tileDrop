@@ -9,11 +9,13 @@ const util = {
       if (currentNumber !== undefined) {
         if (newNumber === currentNumber) {
           newNumber = util.math.createRandomNumber(
-            elements.tiles.length,
+            Globals.game.allBlocks.length,
             0,
             currentNumber
           );
         }
+      } else {
+        newNumber = util.math.createRandomNumber(max, min);
       }
       return newNumber;
     },

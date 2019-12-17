@@ -19,18 +19,19 @@ const anymoreBlocksNeeded = () => {
 const addToArray = block => Globals.game.allBlocks.push(block);
 
 const BuildGrid = () => {
-  setTimeout(() => {
-    if (anymoreBlocksNeeded()) {
-      BuildGrid(addToArray(CreateBlock()));
-    } else {
-      util.elementLib.shuffleArray(Globals.game.allBlocks);
-      // For build:
-      //Countdown();
+  CreateBlock();
+  // setTimeout(() => {
+  //   if (anymoreBlocksNeeded()) {
+  //     BuildGrid(addToArray(CreateBlock()));
+  //   } else {
+  //     util.elementLib.shuffleArray(Globals.game.allBlocks);
+  //     // For build:
+  //     //Countdown();
 
-      // For dev:
-      Services.runGame();
-    }
-  }, 25);
+  //     // For dev:
+  //     Services.runGame();
+  //   }
+  // }, 25);
 };
 
 export default BuildGrid;

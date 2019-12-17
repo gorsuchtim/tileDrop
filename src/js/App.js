@@ -1,5 +1,5 @@
 // Import styles
-import "../css/scss/shared.scss";
+import "../scss/shared.scss";
 
 // Import components
 import Utilities from "./Components/Utilities/Utilities";
