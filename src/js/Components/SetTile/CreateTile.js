@@ -1,7 +1,8 @@
 "use strict";
-import elementFactory from "../utilities/BuildElement";
+
+import util from "../Utilities/Utilities";
 import GenericTile from "./GenericTile";
 
-const CreateTile = () => elementFactory.init(GenericTile);
+const CreateTile = () => util.elementLib.buildElement(GenericTile);
 
 export default CreateTile;

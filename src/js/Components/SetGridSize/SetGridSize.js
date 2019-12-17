@@ -1,3 +1,5 @@
+"use strict";
+
 const SetGridSize = {
   gridSize: 15,
   init() {

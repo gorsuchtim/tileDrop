@@ -8,7 +8,7 @@ const util = {
       var newNumber = Math.floor(Math.random() * (max - min) + min);
       if (currentNumber !== undefined) {
         if (newNumber === currentNumber) {
-          newNumber = util.createRandomNumber(
+          newNumber = util.math.createRandomNumber(
             elements.tiles.length,
             0,
             currentNumber
@@ -145,6 +145,24 @@ const util = {
         } else {
           bindTo.textContent = bindTo.getAttribute("initialValue");
         }
+      }
+    },
+    buildElement(obj) {
+      var element = document.createElement(obj.type);
+      obj.attrs != ""
+        ? util.elementLib.setAttributes(element, obj.attrs)
+        : false;
+      obj.content != "" ? (element.textContent = obj.content) : false;
+      obj.appendTo != "" ? obj.appendTo.appendChild(element) : false;
+      obj.setEvent != "" ? setEvent(element, obj.setEvent) : false;
+
+      return element;
+
+      // ******* Scoped Function(s) -> {buildElement}
+      function setEvent(element, functionInfo) {
+        element.addEventListener(functionInfo.functionType, function() {
+          functionInfo.functionName(functionInfo.argument);
+        });
       }
     },
     classChange(element, directive, ...className) {
