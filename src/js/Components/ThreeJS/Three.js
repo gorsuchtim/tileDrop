@@ -3,13 +3,6 @@
 import util from "../Utilities/Utilities";
 import * as THREE from "three";
 
-const Three = () => {
-  document.body.appendChild(renderer.domElement);
-  console.log("Three still running");
-};
-
-export default Three;
-
 // ******* Scene
 var scene = new THREE.Scene();
 
@@ -47,7 +40,14 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
 });
 
-scene.add(staticMesh);
+document.body.appendChild(renderer.domElement);
+
+const Three = () => {
+  scene.add(staticMesh);
+  console.log(scene);
+};
+
+export default Three;
 
 render();
 
